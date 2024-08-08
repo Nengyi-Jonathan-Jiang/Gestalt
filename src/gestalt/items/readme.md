@@ -1,0 +1,2 @@
+This directory contains all the item types used. For topic content items, the class should extend `ContentItem` and be
+registered in [allItems.ts](allItems.ts) by calling `Item.registerContentItemType`. 

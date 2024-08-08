@@ -1,0 +1,50 @@
+
+#selected-topic {
+    width: 50%;
+    padding:        0;
+    display:        flex;
+    flex-direction: column;
+}
+
+#selected-topic > #selected-topic-top {
+    flex-grow:      0;
+    flex-basis:     0;
+    font-family:    "Raleway", sans-serif;
+    font-size:      150%;
+    font-variant:   small-caps;
+    padding-bottom: 0;
+}
+
+#selected-topic-editor {
+    outline:        2px solid black;
+    outline-offset: -1px;
+}
+
+
+#selected-topic > #selected-topic-view {
+    padding-right:    2px;
+    overflow:         auto;
+    scrollbar-gutter: stable;
+}
+
+#selected-topic-view::-webkit-scrollbar {
+    width: 8px;
+}
+
+#selected-topic-view::-webkit-scrollbar-thumb {
+    background:    #ccc;
+}
+
+#selected-topic-view::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+#selected-topic-editor-textarea {
+    border:        0;
+    border-radius: 0;
+    outline:       none;
+    resize:        none;
+    width:         100%;
+    height:        100%;
+    padding:       .5em;
+}

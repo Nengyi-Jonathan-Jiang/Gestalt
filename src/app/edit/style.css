@@ -1,0 +1,254 @@
+main {
+    position: absolute;
+    top:      0;
+    left:     0;
+    width:    100vw;
+    height:   100vh;
+    margin:   0;
+    padding:  0;
+    overflow: hidden;
+    display:  flex;
+}
+
+main > div {
+    outline:        2px solid black;
+    outline-offset: -1px;
+}
+
+main > div {
+    min-width:   50%;
+    flex-shrink: 0;
+    flex-grow:   1;
+
+    padding:     10px;
+}
+
+#selected-topic > div {
+    flex-basis: 0;
+    flex-grow:  1;
+    padding:    10px;
+}
+
+#topics-list > div.active {
+    outline: 1px solid black;
+}
+
+.topic-item {
+    position: relative;
+    margin:   0 6px;
+    z-index: 0;
+}
+
+.topic-item[data-active] {
+    outline: 1px solid black;
+}
+
+.topic-item:not([data-active]) .delete-button {
+    display: none;
+}
+
+.delete-button, .close-button {
+    position:   relative;
+    display:    block;
+    width:      24px;
+    height:     24px;
+    background: radial-gradient(#fff, #0000);
+    border:     0;
+    outline:    none;
+    padding:    0;
+    margin:     0;
+}
+
+.topic-item .delete-button {
+    position: absolute;
+    top:      4px;
+    right:    5px;
+}
+
+:is(.close-button, .delete-button)::after {
+    content:           "";
+    display:           block;
+    position:          absolute;
+    top:               0;
+    left:              0;
+    width:             100%;
+    height:            100%;
+
+    -webkit-mask-size: cover;
+}
+
+.close-button::after {
+    -webkit-mask-image: url("/icons/close-icon.svg");
+    background:   #48f;
+}
+
+.delete-button::after {
+    -webkit-mask-image: url("/icons/delete-icon.svg");
+    background:   #f48;
+}
+
+.paragraph-item {
+    padding: 4px;
+    margin:  0;
+}
+
+.paragraph-item:empty::after {
+    content:     "Edit this paragraph!";
+    color:       gray;
+    white-space: wrap;
+}
+
+/* Uncomment this to enable indentation on paragraphs */
+/*.paragraph-item::before {*/
+/*    display: inline-block;*/
+/*    width: 2em;*/
+/*    content: "";*/
+/*}*/
+
+.topic-item-insert-line:is(:hover, :last-child)::before {
+    height: 3px;
+    border: 2px #ccc solid;
+}
+
+.topic-item-insert-line:last-child {
+    top:           10px;
+    margin-bottom: 15px;
+}
+
+
+#selected-topic > #selected-topic-editor {
+    min-height:  50vh;
+    flex-grow:   0;
+    flex-shrink: 0;
+    flex-basis:  50vh;
+}
+
+.topic-item-insert-line::before {
+    content:    "";
+    display:    block;
+    width:      100%;
+    height:     1px;
+    border-top: 1px dashed #8883;
+    position:   absolute;
+}
+
+
+.topic-item-insert-line {
+    position:        relative;
+    overflow:        visible;
+    height:          8px;
+    margin-left:     10px;
+    margin-right:    10px;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.topic-item-insert-line:not(:is(:hover, :last-child)) > button {
+    display: none;
+}
+
+.topic-item-insert-line > button {
+    outline:          none;
+    border:           0;
+    background: #ccc;
+    padding:          0;
+    color:            white;
+    border-radius:    50%;
+    font-size:        170%;
+    font-family:      "Raleway", Arial, sans-serif;
+    z-index: 2;
+    width:            .7em;
+    height:           .7em;
+    display:          flex;
+    align-items:      center;
+    justify-content:  center;
+}
+.topic-item-insert-line > button::after {
+    content: "+";
+}
+
+.math-item {
+    padding: 8px 12px;
+    display: block;
+}
+
+.math-item {
+    overflow-x:      auto;
+    overflow-y:      visible;
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+}
+
+.math-item::-webkit-scrollbar {
+    height: 6px;
+}
+
+.math-item::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+
+.math-item::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+.math-item:has(.katex-html:not(:empty)) {
+    padding:          12px 12px 6px 12px;
+    writing-mode:     vertical-lr;
+    scrollbar-gutter: stable;
+    width:            100%;
+}
+
+.math-item > * {
+    width:        100%;
+    writing-mode: initial;
+}
+
+.math-item .katex-html:empty::before {
+    content:         "Edit this math block!";
+    color:           gray;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    height:          16px;
+}
+
+div:has(>.topic-item-insert-modal-body) {
+    height:          100%;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+}
+
+.topic-item-insert-modal-body {
+    outline:    1px solid black;
+    background: white;
+    width:      fit-content;
+    height:     fit-content;
+    padding:    10px;
+}
+
+#selected-topic-top > #selected-topic-top-buttons {
+    position: absolute;
+    display:  flex;
+    top:      10px;
+    right:    10px;
+}
+
+
+#editor-middle {
+    margin: 0 -5px;
+    min-width: 10px;
+    width: 10px;
+    max-width: 10px;
+    flex: 0;
+    padding: 0;
+    outline: none;
+    z-index: 1;
+}
+
+#editor-middle:hover {
+    background: #48f;
+}

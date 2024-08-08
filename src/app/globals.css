@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Nunito';
+    src: url('/nunito/Nunito.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('/raleway/Raleway.woff2') format('woff2');
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+input {
+    font: inherit;
+    padding: 4px;
+    outline: 1px solid black;
+    border: 0;
+    background: none;
+    width: 100%;
+}
+
+button {
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0;
+    font: inherit;
+}
+
+.katex {
+    font-size: 1em !important;
+}
+
+.tex {
+    white-space: nowrap;
+}
+
+.katex-display {
+    margin: 0 !important;
+}
+
+.tex.math[data-error] {
+    color:       red;
+    text-align:  center;
+    white-space: wrap;
+}
+
+:root {
+    text-align:  justify;
+    font-family: KaTeX_Main, Times New Roman, serif;
+    font-size: 14pt;
+}
+
+.ReactModalPortal {
+    position: absolute;
+    z-index: 1000000000;
+}
