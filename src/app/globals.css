@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Nunito';
-    src: url('/nunito/Nunito.woff2') format('woff2');
+    src: url('../_assets/nunito/Nunito.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Raleway';
-    src: url('/raleway/Raleway.woff2') format('woff2');
+    src: url('../_assets/raleway/Raleway.woff2') format('woff2');
 }
 
 *, *::before, *::after {

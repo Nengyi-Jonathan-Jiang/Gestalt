@@ -2,7 +2,7 @@ import {TopicContent} from "@/gestalt/topicContent";
 import {JSONifyable} from "@/utils/JSONifyable";
 import {Item, ItemJSONData} from "@/gestalt/item";
 import {ContentItem} from "@/gestalt/contentItem";
-import {NameItem} from "@/gestalt/items/nameItem";
+import {NameItem} from "@/app/items/nameItem";
 
 export type TopicJSONData = {
     id: number,
@@ -16,7 +16,7 @@ export class Topic implements JSONifyable<TopicJSONData> {
     public readonly id: number;
 
     // TODO: implement later
-    // public readonly relatedTopics: [];
+    // _assets readonly relatedTopics: [];
 
     public content: TopicContent;
 

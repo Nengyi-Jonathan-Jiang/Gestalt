@@ -1,0 +1,1 @@
+This folder contains all the images, fonts and other resources used in the website.

@@ -1,6 +1,6 @@
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess/gestaltAccess";
-import {TopicAccess} from "@/gestalt/editor/topicAccess/topicAccess";
-import {ItemWriteAccess} from "@/gestalt/editor/itemAccess/itemWriteAccess";
+import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
+import {TopicAccess} from "@/gestalt/editor/topicAccess";
+import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import {Item} from "@/gestalt/item";
 import {Topic} from "@/gestalt/topic";
 

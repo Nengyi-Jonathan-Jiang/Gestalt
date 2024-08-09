@@ -1,6 +1,6 @@
-import {TopicAccess} from "@/gestalt/editor/topicAccess/topicAccess";
+import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {GestaltViewData} from "@/gestalt/editor/gestaltViewData";
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess/gestaltAccess";
+import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {Gestalt} from "@/gestalt/gestalt";
 import {PrivateSharedTopicAccess} from "@/gestalt/editor/implementations/private/privateSharedTopicAccess";
 

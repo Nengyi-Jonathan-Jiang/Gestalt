@@ -1,5 +1,7 @@
 import {JSONifyable} from "@/utils/JSONifyable";
 import {ReactElement, RefObject} from "react";
+import {ContentItem} from "@/gestalt/contentItem";
+import {MetadataItem} from "@/gestalt/metadataItem";
 
 export type ItemJSONData = {
     type: string,
@@ -9,6 +11,17 @@ export type ItemJSONData = {
 export interface ItemEditingModeRenderResult {
     selfRender: ReactElement,
     editorRender: ReactElement
+}
+
+export interface ContentItemTypeRegistryEntry {
+    cls: typeof ContentItem;
+    displayName: string;
+    constructor: (source?: string) => ContentItem;
+}
+
+export interface MetadataItemTypeRegistryEntry {
+    cls: typeof MetadataItem;
+    constructor: (source?: string) => MetadataItem;
 }
 
 /**
@@ -28,41 +41,59 @@ export abstract class Item implements JSONifyable<ItemJSONData> {
     toJSON(): ItemJSONData {
         return {
             // @ts-ignore
-            type: Item.clsNameMap.get(this.constructor) as string,
+            type: this.constructor.name as string,
             source: this.value
         };
     }
 
     fromJSON({type, source}: ItemJSONData): this {
-        let constructor = Item.clsConstructorMap.get(type);
+        let constructor = (
+            Item.metadataItemTypeRegistry.get(type) ?? Item.contentItemTypeRegistry.get(type)
+        )?.constructor;
+
         if (!constructor) {
             throw new Error(`Unknown item type : ${type}`);
         }
+
         // @ts-ignore
         return constructor(source);
     }
 
-    private static readonly clsConstructorMap: Map<string, (source: string) => Item> = new Map;
-    private static readonly clsNameMap: Map<typeof Item, string> = new Map;
-    private static readonly clsDisplayNameMap: Map<string, string> = new Map;
+    private static readonly _contentItemTypeRegistry: Map<string, Readonly<ContentItemTypeRegistryEntry>> = new Map;
+    private static readonly _metadataItemTypeRegistry: Map<string, Readonly<MetadataItemTypeRegistryEntry>> = new Map;
 
-    public static registerContentItemType(cls: typeof Item, displayName: string, constructor: (source: string) => Item) {
-        const {name} = cls
-
-        this.clsConstructorMap.set(name, constructor);
-        this.clsNameMap.set(cls, name);
-        this.clsDisplayNameMap.set(name, displayName);
+    public static registerContentItemType(cls: typeof ContentItem, displayName: string) {
+        this._contentItemTypeRegistry.set(cls.name, {
+            displayName,
+            cls,
+            constructor: (source?: string) => {
+                // We know that only non-abstract classes may be registered, but typescript doesn't.
+                // @ts-ignore
+                return new cls(source ?? "");
+            }
+        });
     }
 
-    public static getContentItemTypes() {
-        return [...this.clsDisplayNameMap.entries()].map(([key, displayName]) => ({
-            displayName,
-            constructor: this.clsConstructorMap.get(key) as (source: string) => Item,
-        }));
+    public static registerMetadataItemType(cls: typeof MetadataItem) {
+        this._metadataItemTypeRegistry.set(cls.name, {
+            cls,
+            constructor: (source?: string) => {
+                // We know that only non-abstract classes may be registered, but typescript doesn't.
+                // @ts-ignore
+                return new cls(source ?? "");
+            }
+        });
+    }
+
+    public static get contentItemTypeRegistry(): ReadonlyMap<string, Readonly<ContentItemTypeRegistryEntry>> {
+        return this._contentItemTypeRegistry;
+    }
+
+    public static get metadataItemTypeRegistry(): ReadonlyMap<string, Readonly<MetadataItemTypeRegistryEntry>> {
+        return this._metadataItemTypeRegistry;
     }
 
     public abstract render(): ReactElement;
 
     public abstract renderEditing(editorElementRef: RefObject<HTMLElement>): ItemEditingModeRenderResult;
 }
-

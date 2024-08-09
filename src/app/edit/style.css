@@ -78,12 +78,12 @@ main > div {
 }
 
 .close-button::after {
-    -webkit-mask-image: url("/icons/close-icon.svg");
+    -webkit-mask-image: url("../../_assets/icons/close-icon.svg");
     background:   #48f;
 }
 
 .delete-button::after {
-    -webkit-mask-image: url("/icons/delete-icon.svg");
+    -webkit-mask-image: url("../../_assets/icons/delete-icon.svg");
     background:   #f48;
 }
 
@@ -247,8 +247,14 @@ div:has(>.topic-item-insert-modal-body) {
     padding: 0;
     outline: none;
     z-index: 1;
+    position: relative;
 }
 
-#editor-middle:hover {
+#editor-middle:hover::before {
+    content: "";
+    display: block;
+    margin: 0 3px;
+    width: 4px;
+    height: 100%;
     background: #48f;
 }

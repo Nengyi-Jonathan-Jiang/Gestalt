@@ -1,16 +1,18 @@
-import {ItemWriteAccess} from "@/gestalt/editor/itemAccess/itemWriteAccess";
+import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import {Item} from "@/gestalt/item";
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess/gestaltAccess";
+import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {ReactElement} from "react";
 import {ContentItem} from "@/gestalt/contentItem";
+import {TopicAccess} from "@/gestalt/editor/topicAccess";
+import {Topic} from "@/gestalt/topic";
 
 export class PrivateItemWriteAccess<T extends Item = Item> implements ItemWriteAccess<T> {
     private readonly item: T;
-    private readonly gestaltAccess: GestaltAccess;
+    private readonly topicAccess: TopicAccess;
 
-    constructor(item: T, gestaltAccess: GestaltAccess) {
+    constructor(item: T, topicAccess: TopicAccess) {
         this.item = item;
-        this.gestaltAccess = gestaltAccess;
+        this.topicAccess = topicAccess;
     }
 
     _getItem(): Readonly<T> {
@@ -28,7 +30,7 @@ export class PrivateItemWriteAccess<T extends Item = Item> implements ItemWriteA
     writeSource(source: string): void {
         this.item.value = source;
 
-        this.gestaltAccess.markChanged();
+        this.topicAccess.markChanged();
     }
 
     public readonly hasWriteAccess: boolean = true;

@@ -4,7 +4,7 @@ import {EditorContext} from "@/app/edit/editorContext";
 import {ItemInsertLine} from "@/app/edit/components/itemInsertLine";
 
 import "./selectedTopicViewer.css"
-import {TopicAccess} from "@/gestalt/editor/topicAccess/topicAccess";
+import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {Item, ItemEditingModeRenderResult} from "@/gestalt/item";
 import {TexMacroProvider} from "@/tex/Tex";
 import {defaultTexMacros} from "@/tex/texDefaultMacros";

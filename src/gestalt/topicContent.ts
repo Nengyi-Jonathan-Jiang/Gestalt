@@ -1,4 +1,5 @@
 import {ContentItem} from "@/gestalt/contentItem";
+import {BasicContentItem} from "@/app/items/basicContentItem";
 
 export class TopicContent {
     private readonly items: ContentItem[]
@@ -7,7 +8,7 @@ export class TopicContent {
         this.items = items;
     }
 
-    map<T>(f: (item: ContentItem) => T) : T[] {
+    map<T>(f: (item: BasicContentItem) => T) : T[] {
         return this.items.map(f);
     }
 
@@ -15,7 +16,7 @@ export class TopicContent {
         return this.items.indexOf(item);
     }
 
-    get(index: number): ContentItem {
+    get(index: number): BasicContentItem {
         return this.items[index];
     }
 

@@ -1,8 +1,8 @@
 import {Item} from "@/gestalt/item";
-import {ItemWriteAccess} from "@/gestalt/editor/itemAccess/itemWriteAccess";
+import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import {Topic} from "@/gestalt/topic";
 import {ContentItem} from "@/gestalt/contentItem";
-import {NameItem} from "@/gestalt/items/nameItem";
+import {NameItem} from "@/app/items/nameItem";
 
 export interface TopicAccess {
     getTopicName(): string;
@@ -37,6 +37,11 @@ export interface TopicAccess {
 
     /** This method should only be used to get read-only access to the topic */
     _getTopic(): Topic;
+
+    /**
+     * Indicate that an edit has been made
+     */
+    markChanged(): void;
 
     readonly isElevated: boolean
 }

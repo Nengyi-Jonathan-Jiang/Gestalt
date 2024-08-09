@@ -1,0 +1,1 @@
+Assorted utility methods and classes. Not all of these are used; I just copy-pasted a bunch from another project. 

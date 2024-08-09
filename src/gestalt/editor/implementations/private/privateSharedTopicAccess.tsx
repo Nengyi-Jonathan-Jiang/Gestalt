@@ -1,11 +1,12 @@
 import {Topic} from "@/gestalt/topic";
-import {ItemWriteAccess} from "@/gestalt/editor/itemAccess/itemWriteAccess";
-import {TopicAccess} from "@/gestalt/editor/topicAccess/topicAccess";
+import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
+import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {PrivateItemWriteAccess} from "@/gestalt/editor/implementations/private/privateItemWriteAccess";
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess/gestaltAccess";
+import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {ContentItem} from "@/gestalt/contentItem";
-import {NameItem} from "@/gestalt/items/nameItem";
+import {NameItem} from "@/app/items/nameItem";
 import {Item} from "@/gestalt/item";
+import {BasicContentItem} from "@/app/items/basicContentItem";
 
 export class PrivateSharedTopicAccess implements TopicAccess {
     protected readonly topic: Topic;
@@ -28,7 +29,7 @@ export class PrivateSharedTopicAccess implements TopicAccess {
         return this.topic.name
     }
 
-    async insertContentItem(before: ContentItem | null, itemSupplier: () => ContentItem): Promise<ItemWriteAccess | null> {
+    async insertContentItem(before: ContentItem | null, itemSupplier: () => BasicContentItem): Promise<ItemWriteAccess | null> {
         const topicContent = this.topic.content;
         const createdItem = itemSupplier();
 
@@ -45,7 +46,7 @@ export class PrivateSharedTopicAccess implements TopicAccess {
 
         this.gestaltAccess.markChanged();
 
-        return new PrivateItemWriteAccess(createdItem, this.gestaltAccess);
+        return new PrivateItemWriteAccess(createdItem, this);
     }
 
     async deleteContentItem(itemWriteAccess: ItemWriteAccess<ContentItem>): Promise<boolean> {
@@ -63,7 +64,7 @@ export class PrivateSharedTopicAccess implements TopicAccess {
     }
 
     async requestItemWriter(item: Item): Promise<ItemWriteAccess | null> {
-        return new PrivateItemWriteAccess(item, this.gestaltAccess);
+        return new PrivateItemWriteAccess(item, this);
     }
 
     getNameItem(): NameItem {
@@ -72,6 +73,10 @@ export class PrivateSharedTopicAccess implements TopicAccess {
 
     returnItemWriter(_itemWriter: ItemWriteAccess): void {
         // Do nothing
+    }
+
+    markChanged(): void {
+        this.gestaltAccess.markChanged();
     }
 
     public readonly isElevated: boolean = false;

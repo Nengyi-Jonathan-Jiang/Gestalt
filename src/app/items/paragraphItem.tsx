@@ -1,8 +1,8 @@
 import {Fragment, ReactElement} from "react";
 import {MathTex} from "@/tex/Tex";
-import {ContentItem} from "@/gestalt/contentItem";
+import {BasicContentItem} from "@/app/items/basicContentItem";
 
-export class ParagraphItem extends ContentItem {
+export class ParagraphItem extends BasicContentItem {
     public render(): ReactElement {
         // TODO: add TEX functionality
 

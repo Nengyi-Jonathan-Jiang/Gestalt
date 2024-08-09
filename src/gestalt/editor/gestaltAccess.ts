@@ -1,4 +1,4 @@
-import {TopicAccess} from "@/gestalt/editor/topicAccess/topicAccess";
+import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {GestaltViewData} from "@/gestalt/editor/gestaltViewData";
 
 export interface GestaltAccess {

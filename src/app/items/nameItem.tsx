@@ -3,6 +3,7 @@ import React, {ReactElement, RefObject, useContext} from "react";
 import {EditorContext} from "@/app/edit/editorContext";
 
 import "./nameItem.css";
+import {MetadataItem} from "@/gestalt/metadataItem";
 
 function NameItemEditingMode({value, editorElementRef}: {
     value: string,
@@ -20,7 +21,7 @@ function NameItemEditingMode({value, editorElementRef}: {
     />
 }
 
-export class NameItem extends Item {
+export class NameItem extends MetadataItem {
     constructor(name: string) {
         super(name);
     }

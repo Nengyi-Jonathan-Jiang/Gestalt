@@ -8,18 +8,22 @@ import {DependencyList, RefObject, useEffect, useState} from "react";
  */
 export function createArray<T>(length: number, value: T | ((index: number) => T)): T[] {
     return typeof value == "function"
-        ? new Array(length).fill(null).map((_, i) => (value as (index : number) => T)(i))
+        ? new Array(length).fill(null).map((_, i) => (value as (index: number) => T)(i))
         : new Array(length).fill(value);
 }
 
-export function editArray<T>(arr: T[], startInclusive : number, endInclusive : number, value: T | ((value: T, index: number) => T)) : void {
-    if(typeof value == "function") {
-        for(let i = startInclusive; i <= endInclusive; i++) {
+export function toArray<T>(iterable: Iterable<T>) {
+    return [...iterable];
+}
+
+export function editArray<T>(arr: T[], startInclusive: number, endInclusive: number, value: T | ((value: T, index: number) => T)): void {
+    if (typeof value == "function") {
+        for (let i = startInclusive; i <= endInclusive; i++) {
             arr[i] = (value as ((value: T, index: number) => T))(arr[i], i);
         }
     }
     else {
-        for(let i = startInclusive; i <= endInclusive; i++) {
+        for (let i = startInclusive; i <= endInclusive; i++) {
             arr[i] = value;
         }
     }

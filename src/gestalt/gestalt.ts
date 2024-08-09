@@ -2,7 +2,6 @@ import {Topic, TopicJSONData} from "@/gestalt/topic";
 import {TopicContent} from "@/gestalt/topicContent";
 import {GestaltSaveData} from "@/gestalt/gestaltSaveData";
 import {JSONifyable} from "@/utils/JSONifyable";
-import {registerItemTypes} from "@/gestalt/items/allItems";
 
 type GestaltJSONData = {
     nextTopicID: number,
@@ -96,5 +95,3 @@ export class Gestalt implements JSONifyable<GestaltJSONData> {
         return this._allTopics.has(topic.id);
     }
 }
-
-registerItemTypes();
