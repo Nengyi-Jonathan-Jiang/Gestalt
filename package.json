@@ -17,12 +17,22 @@
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
-    "@types/react-modal": "^3.16.3",
     "@types/katex": "^0.16.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-modal": "^3.16.3",
     "@types/socket.io": "^3.0.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "madge": "^8.0.0"
+  },
+  "madge": {
+    "tsConfig": "./tsconfig.json",
+    "fileExtensions": ["ts", "tsx"],
+    "detectiveOptions": {
+      "ts": {
+        "skipTypeImports": true
+      }
+    }
   }
 }

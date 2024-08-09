@@ -4,9 +4,9 @@ import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {PrivateItemWriteAccess} from "@/gestalt/editor/implementations/private/privateItemWriteAccess";
 import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {ContentItem} from "@/gestalt/contentItem";
-import {NameItem} from "@/app/items/nameItem";
 import {Item} from "@/gestalt/item";
 import {BasicContentItem} from "@/app/items/basicContentItem";
+import {MetadataItem} from "@/gestalt/metadataItem";
 
 export class PrivateSharedTopicAccess implements TopicAccess {
     protected readonly topic: Topic;
@@ -67,8 +67,8 @@ export class PrivateSharedTopicAccess implements TopicAccess {
         return new PrivateItemWriteAccess(item, this);
     }
 
-    getNameItem(): NameItem {
-        return this.topic.nameItem;
+    getMetadataItem<T extends typeof MetadataItem>(itemType: T): InstanceType<T> {
+        return this.topic.metadata.get(itemType);
     }
 
     returnItemWriter(_itemWriter: ItemWriteAccess): void {

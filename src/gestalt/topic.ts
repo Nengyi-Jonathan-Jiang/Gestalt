@@ -1,8 +1,9 @@
 import {TopicContent} from "@/gestalt/topicContent";
 import {JSONifyable} from "@/utils/JSONifyable";
-import {Item, ItemJSONData} from "@/gestalt/item";
+import {ItemJSONData} from "@/gestalt/item";
 import {ContentItem} from "@/gestalt/contentItem";
 import {NameItem} from "@/app/items/nameItem";
+import {TopicMetadata} from "@/gestalt/topicMetadata";
 
 export type TopicJSONData = {
     id: number,
@@ -11,18 +12,15 @@ export type TopicJSONData = {
 };
 
 export class Topic implements JSONifyable<TopicJSONData> {
-    public nameItem: NameItem = new NameItem("");
-
     public readonly id: number;
 
-    // TODO: implement later
-    // _assets readonly relatedTopics: [];
+    public readonly metadata: TopicMetadata;
+    public readonly content: TopicContent;
 
-    public content: TopicContent;
-
-    constructor(id: number, name: string, content: TopicContent) {
+    constructor(id: number, name: string, content: TopicContent, metadata?: TopicMetadata) {
         this.id = id;
-        this.name = name;
+        this.metadata = metadata ?? new TopicMetadata;
+        this.metadata.update(new NameItem(name));
         this.content = content;
     }
 
@@ -41,19 +39,25 @@ export class Topic implements JSONifyable<TopicJSONData> {
         target['id'] = id;
 
         target.name = name;
-        target.content = new TopicContent(
-            ...content.map(i => Item.prototype.fromJSON(i) as ContentItem)
+
+        // @ts-ignore
+        target['content'] = new TopicContent(
+            ...content.map(i => ContentItem.prototype.fromJSON(i) as ContentItem)
         );
 
         // @ts-ignore
         return target;
     }
 
+    public get nameItem() {
+        return this.metadata.get(NameItem);
+    }
+
     public get name() {
-        return this.nameItem.value;
+        return this.metadata.get(NameItem).value;
     }
 
     public set name(name: string) {
-        this.nameItem.value = name;
+        this.metadata.get(NameItem).value = name;
     }
 }

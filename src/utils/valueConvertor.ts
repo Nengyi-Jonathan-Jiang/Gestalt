@@ -1,9 +1,9 @@
-
 export abstract class ValueConvertor {
     abstract convertForwards(amountA: number): number;
+
     abstract convertBackwards(amountB: number): number;
 
-    static compose(...convertors: ValueConvertor[]) : ValueConvertor {
+    static compose(...convertors: ValueConvertor[]): ValueConvertor {
         return new ComposedValueConvertor(...convertors);
     }
 
@@ -14,7 +14,8 @@ export abstract class ValueConvertor {
 
 class ComposedValueConvertor implements ValueConvertor {
     private readonly convertors: ValueConvertor[];
-    constructor(...convertors : ValueConvertor[]) {
+
+    constructor(...convertors: ValueConvertor[]) {
         this.convertors = convertors;
     }
 

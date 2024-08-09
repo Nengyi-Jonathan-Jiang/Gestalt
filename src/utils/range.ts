@@ -41,7 +41,7 @@ export class Range implements ReadonlyRange {
         }
     }
 
-    includes(x : number) : boolean {
+    includes(x: number): boolean {
         return x >= this.start && x <= this.end;
     }
 
@@ -121,7 +121,7 @@ export class Range implements ReadonlyRange {
         return this;
     }
 
-    modifyEndExclusive(mappingFunction : (this: null, start: number) => any) : this {
+    modifyEndExclusive(mappingFunction: (this: null, start: number) => any): this {
         this.endExclusive = mappingFunction.call(null, this.endExclusive);
         return this;
     }
@@ -164,7 +164,7 @@ export class Range implements ReadonlyRange {
             .setEndExclusive(Math.max(p1, p2))
     }
 
-    static forIndicesOf(arrayLike: {length: number}) {
+    static forIndicesOf(arrayLike: { length: number }) {
         return new Range(0, arrayLike.length - 1);
     }
 }

@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'Nunito';
-    src: url('../_assets/nunito/Nunito.woff2') format('woff2');
+    font-family: "Nunito";
+    src:         url("../_assets/nunito/Nunito.woff2") format("woff2");
 }
 
 @font-face {
-    font-family: 'Raleway';
-    src: url('../_assets/raleway/Raleway.woff2') format('woff2');
+    font-family: "Raleway";
+    src:         url("../_assets/raleway/Raleway.woff2") format("woff2");
 }
 
 *, *::before, *::after {
@@ -13,19 +13,19 @@
 }
 
 input {
-    font: inherit;
-    padding: 4px;
-    outline: 1px solid black;
-    border: 0;
+    font:       inherit;
+    padding:    4px;
+    outline:    1px solid black;
+    border:     0;
     background: none;
-    width: 100%;
+    width:      100%;
 }
 
 button {
-    outline: none;
-    border: 1px solid black;
+    outline:       none;
+    border:        1px solid black;
     border-radius: 0;
-    font: inherit;
+    font:          inherit;
 }
 
 .katex {
@@ -49,10 +49,10 @@ button {
 :root {
     text-align:  justify;
     font-family: KaTeX_Main, Times New Roman, serif;
-    font-size: 14pt;
+    font-size:   14pt;
 }
 
 .ReactModalPortal {
     position: absolute;
-    z-index: 1000000000;
+    z-index:  1000000000;
 }

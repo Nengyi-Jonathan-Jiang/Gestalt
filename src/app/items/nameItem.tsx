@@ -1,9 +1,9 @@
-import {Item, ItemEditingModeRenderResult} from "@/gestalt/item";
-import React, {ReactElement, RefObject, useContext} from "react";
-import {EditorContext} from "@/app/edit/editorContext";
+import {ItemEditingModeRenderResult} from "@/gestalt/item";
+import {ReactElement, RefObject, useContext} from "react";
 
 import "./nameItem.css";
 import {MetadataItem} from "@/gestalt/metadataItem";
+import {EditorContext} from "@/app/edit/editorContext";
 
 function NameItemEditingMode({value, editorElementRef}: {
     value: string,
@@ -22,9 +22,6 @@ function NameItemEditingMode({value, editorElementRef}: {
 }
 
 export class NameItem extends MetadataItem {
-    constructor(name: string) {
-        super(name);
-    }
 
     public render(): ReactElement {
         return <div className="name-item">{this.value} </div>
@@ -35,14 +32,5 @@ export class NameItem extends MetadataItem {
             editorRender: <></>, // Name editor is in-place, no separate editor
             selfRender: <NameItemEditingMode value={this.value} editorElementRef={ref}/>
         }
-    }
-
-    public set(value: string) {
-        // value = value.trim();
-        if (value.length) {
-            value = value.charAt(0).toUpperCase() + value.slice(1);
-        }
-
-        this.value = value;
     }
 }

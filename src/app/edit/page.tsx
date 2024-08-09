@@ -33,7 +33,8 @@ export default function GestaltEditorPage() {
         try {
             gestalt.fromJSON(JSON.parse(window.localStorage.getItem("gestalt:Main") ?? ""));
         } catch (e) {
-            console.warn(`Error loading from store: ${(e as Error).message}`);
+            console.warn(`Error loading from store`);
+            console.warn(e);
             gestalt.fromJSON({nextTopicID: 0, name: "Main", topics: []});
         }
         // Manually rerender the component -- (the state has changed)

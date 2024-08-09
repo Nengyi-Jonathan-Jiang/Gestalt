@@ -8,8 +8,8 @@ import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {Item, ItemEditingModeRenderResult} from "@/gestalt/item";
 import {TexMacroProvider} from "@/tex/Tex";
 import {defaultTexMacros} from "@/tex/texDefaultMacros";
-import {Mutable} from "next/dist/client/components/router-reducer/router-reducer-types";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
+import {NameItem} from "@/app/items/nameItem";
 
 // DO NOT convert this into a component!!
 function renderItem({editor, editorElementRef, item, itemEditor}: {
@@ -58,7 +58,7 @@ function TopicView({currentTopic, onClick, editorElementRef}: {
     const editor = useContext(EditorContext);
     let itemEditor: MutableRefObject<ReactElement> = {current: <></>};
 
-    let nameItem = currentTopic.getNameItem();
+    let nameItem = currentTopic.getMetadataItem(NameItem);
 
     return <div id="selected-topic">
         <div id="selected-topic-top">

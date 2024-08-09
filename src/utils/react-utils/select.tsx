@@ -58,7 +58,7 @@ export function Select<OptionValueType, ActiveOptionRefType extends HTMLElement,
      containerProps = () => ({}),
      activeOptionProps = () => ({}),
      optionProps = () => ({}),
-    ...otherProps
+     ...otherProps
  }: SelectProps<OptionValueType, ActiveOptionRefType, OptionRefType>) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -81,9 +81,9 @@ export function Select<OptionValueType, ActiveOptionRefType extends HTMLElement,
     }, [optionRefs, isOpen]);
 
     useListenerOnWindow(window, "mousedown", e => {
-        if(containerRef.current == null || e.target == null) return;
+        if (containerRef.current == null || e.target == null) return;
 
-        if(!containerRef.current.contains(e.target as Node)) {
+        if (!containerRef.current.contains(e.target as Node)) {
             close();
         }
     })
@@ -98,7 +98,8 @@ export function Select<OptionValueType, ActiveOptionRefType extends HTMLElement,
             <div style={{...(isOpen ? selectOptionsOpenStyle : selectOptionsClosedStyle)}}>
                 <div style={selectOptionsStyle}>
                     {options.map((option, i) =>
-                        <OptionComponent value={option} elementRef={optionRefs[i]} key={i} {...optionProps(option, value)}/>
+                        <OptionComponent value={option} elementRef={optionRefs[i]}
+                                         key={i} {...optionProps(option, value)}/>
                     )}
                 </div>
             </div>

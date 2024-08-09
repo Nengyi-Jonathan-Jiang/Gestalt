@@ -1,6 +1,5 @@
 import {Topic, TopicJSONData} from "@/gestalt/topic";
 import {TopicContent} from "@/gestalt/topicContent";
-import {GestaltSaveData} from "@/gestalt/gestaltSaveData";
 import {JSONifyable} from "@/utils/JSONifyable";
 
 type GestaltJSONData = {
@@ -81,14 +80,6 @@ export class Gestalt implements JSONifyable<GestaltJSONData> {
             return true;
         }
         return false;
-    }
-
-    public static fromSave(saveData: GestaltSaveData): Gestalt {
-        return saveData.toGestalt()
-    }
-
-    public save(): GestaltSaveData {
-        return new GestaltSaveData(this)
     }
 
     hasTopic(topic: Topic): boolean {

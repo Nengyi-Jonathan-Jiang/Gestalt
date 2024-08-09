@@ -87,7 +87,8 @@ export class SubarrayView<T> {
     constructor(backingArray: ArrayOrArrayView<T>, backingIndexRange?: ReadonlyRange) {
         if (backingIndexRange != undefined) {
             this.backingIndexRange = backingIndexRange.trimmedToRange(Range.forIndicesOf(backingArray));
-        } else {
+        }
+        else {
             this.backingIndexRange = Range.forIndicesOf(backingArray);
         }
 
@@ -111,7 +112,8 @@ export class SubarrayView<T> {
 
         if (backingArray instanceof SubarrayView) {
             backingArray.set(backingIndex, value);
-        } else {
+        }
+        else {
             backingArray[backingIndex] = value;
         }
 

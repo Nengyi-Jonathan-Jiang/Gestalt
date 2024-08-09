@@ -1,5 +1,5 @@
-import {ReactElement} from "react";
-import {Item} from "@/gestalt/item";
+import type {ReactElement} from "react";
+import type {Item} from "@/gestalt/item";
 
 export interface ItemWriteAccess<ItemType extends Item = Item> {
     getItemPreview(): ReactElement;

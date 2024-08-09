@@ -36,7 +36,7 @@ main > div {
 .topic-item {
     position: relative;
     margin:   0 6px;
-    z-index: 0;
+    z-index:  0;
 }
 
 .topic-item[data-active] {
@@ -79,12 +79,12 @@ main > div {
 
 .close-button::after {
     -webkit-mask-image: url("../../_assets/icons/close-icon.svg");
-    background:   #48f;
+    background:         #48f;
 }
 
 .delete-button::after {
     -webkit-mask-image: url("../../_assets/icons/delete-icon.svg");
-    background:   #f48;
+    background:         #f48;
 }
 
 .paragraph-item {
@@ -142,7 +142,7 @@ main > div {
     display:         flex;
     align-items:     center;
     justify-content: center;
-    z-index: 1;
+    z-index:         1;
 }
 
 .topic-item-insert-line:not(:is(:hover, :last-child)) > button {
@@ -150,21 +150,22 @@ main > div {
 }
 
 .topic-item-insert-line > button {
-    outline:          none;
-    border:           0;
-    background: #ccc;
-    padding:          0;
-    color:            white;
-    border-radius:    50%;
-    font-size:        170%;
-    font-family:      "Raleway", Arial, sans-serif;
-    z-index: 2;
-    width:            .7em;
-    height:           .7em;
-    display:          flex;
-    align-items:      center;
-    justify-content:  center;
+    outline:         none;
+    border:          0;
+    background:      #ccc;
+    padding:         0;
+    color:           white;
+    border-radius:   50%;
+    font-size:       170%;
+    font-family:     "Raleway", Arial, sans-serif;
+    z-index:         2;
+    width:           .7em;
+    height:          .7em;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
 }
+
 .topic-item-insert-line > button::after {
     content: "+";
 }
@@ -239,22 +240,22 @@ div:has(>.topic-item-insert-modal-body) {
 
 
 #editor-middle {
-    margin: 0 -5px;
+    margin:    0 -5px;
     min-width: 10px;
-    width: 10px;
+    width:     10px;
     max-width: 10px;
-    flex: 0;
-    padding: 0;
-    outline: none;
-    z-index: 1;
-    position: relative;
+    flex:      0;
+    padding:   0;
+    outline:   none;
+    z-index:   1;
+    position:  relative;
 }
 
 #editor-middle:hover::before {
-    content: "";
-    display: block;
-    margin: 0 3px;
-    width: 4px;
-    height: 100%;
+    content:    "";
+    display:    block;
+    margin:     0 3px;
+    width:      4px;
+    height:     100%;
     background: #48f;
 }

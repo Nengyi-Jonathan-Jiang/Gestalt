@@ -1,8 +1,8 @@
-import {Item} from "@/gestalt/item";
-import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
-import {Topic} from "@/gestalt/topic";
-import {ContentItem} from "@/gestalt/contentItem";
-import {NameItem} from "@/app/items/nameItem";
+import type {Item} from "@/gestalt/item";
+import type {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
+import type {Topic} from "@/gestalt/topic";
+import type {ContentItem} from "@/gestalt/contentItem";
+import {MetadataItem} from "@/gestalt/metadataItem";
 
 export interface TopicAccess {
     getTopicName(): string;
@@ -28,7 +28,7 @@ export interface TopicAccess {
      */
     requestItemWriter(item: Item): Promise<ItemWriteAccess | null>;
 
-    getNameItem() : NameItem;
+    getMetadataItem<T extends typeof MetadataItem>(itemType: T): InstanceType<T>;
 
     /**
      * Return write access to a topic.

@@ -1,11 +1,11 @@
-import {TopicAccess} from "@/gestalt/editor/topicAccess";
-import {GestaltViewData} from "@/gestalt/editor/gestaltViewData";
+import type {TopicAccess} from "@/gestalt/editor/topicAccess";
+import type {GestaltViewData} from "@/gestalt/editor/gestaltViewData";
 
 export interface GestaltAccess {
     /**
      * A list of all the topics in the Gestalt.
      */
-    readonly viewData: GestaltViewData;
+    get viewData(): GestaltViewData;
 
     /**
      * Creates a topic with the given name and parent topics

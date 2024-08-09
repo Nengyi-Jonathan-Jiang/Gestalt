@@ -1,4 +1,3 @@
-
 // noinspection JSUnusedGlobalSymbols
 /**
  * A wrapper around a vanilla {@link Promise} that exposes two new properties:
@@ -65,7 +64,8 @@ export class AsyncTask<T> implements PromiseLike<T> {
     onFinished(callback: (value: T) => any): void {
         if (this.isFinished) {
             callback.call(undefined, this.#value as T);
-        } else {
+        }
+        else {
             this.#promise.then(callback);
         }
     }
@@ -127,7 +127,8 @@ export class AsyncTaskWithDefault<T> extends AsyncTask<T> {
     get value(): T {
         if (this.isFinished) {
             return super.value;
-        } else {
+        }
+        else {
             return this.#defaultValue;
         }
     }

@@ -1,4 +1,4 @@
-import React, {RefObject} from "react";
+import {RefObject} from "react";
 import {ItemEditingModeRenderResult} from "@/gestalt/item";
 import {BasicContentItemEditor} from "@/app/items/basicContentItemEditor";
 import {ContentItem} from "@/gestalt/contentItem";

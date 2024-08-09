@@ -1,9 +1,9 @@
-import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
-import {ContentItemTypeRegistryEntry, Item} from "@/gestalt/item";
+import {Item} from "@/gestalt/item";
 import React, {RefObject, useContext, useState} from "react";
 import Modal from "react-modal";
 import {EditorContext} from "@/app/edit/editorContext";
 import {toArray} from "@/utils/util";
+import {ContentItem, ContentItemTypeRegistryEntry} from "@/gestalt/contentItem";
 
 function AddItemButton({contentItemTypeEntry: {constructor, displayName}, closeModal, action}: {
     contentItemTypeEntry: Readonly<ContentItemTypeRegistryEntry>,
@@ -21,7 +21,7 @@ function AddItemModal({isOpen, closeModal, addItem}: {
     closeModal: () => void,
     addItem: (supplier: () => Item) => Promise<void>
 }) {
-    const contentItemTypes = toArray(Item.contentItemTypeRegistry.values());
+    const contentItemTypes = toArray(ContentItem.itemTypeRegistry.values());
 
     return <Modal isOpen={isOpen} className="topic-item-insert-modal" ariaHideApp={false}>
         <div className="topic-item-insert-modal-body">

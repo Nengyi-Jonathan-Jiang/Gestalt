@@ -43,7 +43,7 @@ export class PrivateGestaltAccess implements GestaltAccess {
     }
 
     markChanged(): void {
-        const saveString = this.gestalt.save().string();
+        const saveString = JSON.stringify(this.gestalt.toJSON());
         const saveKey = `gestalt:${this.gestalt.name}`;
         window.localStorage.setItem(saveKey, saveString);
     }

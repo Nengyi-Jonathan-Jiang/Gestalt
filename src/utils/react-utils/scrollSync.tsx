@@ -75,7 +75,7 @@ export class ScrollPane<ElementType extends ScrollableElement = any> {
         this.element.scrollTop = clamp(proportion, 0, 1) * this.scrollableAmountY;
     }
 
-    get element() : ElementType {
+    get element(): ElementType {
         return this.#element;
     }
 }
@@ -96,9 +96,10 @@ abstract class AbstractScrollSyncer implements IScrollSyncer {
         if (this.#syncX)
             this.syncX(sourcePane, destPane)
     }
-    
-    protected abstract syncY(sourcePane: ScrollPane, destPane: ScrollPane) : void;
-    protected abstract syncX(sourcePane: ScrollPane, destPane: ScrollPane) : void;
+
+    protected abstract syncY(sourcePane: ScrollPane, destPane: ScrollPane): void;
+
+    protected abstract syncX(sourcePane: ScrollPane, destPane: ScrollPane): void;
 
     #handlePaneScroll(pane: ScrollPane) {
         this.#panes.forEach(i => {
@@ -131,16 +132,16 @@ export class ProportionalScrollSyncer extends AbstractScrollSyncer {
         super(props ?? {});
     }
 
-    protected syncY(sourcePane: {readonly scrollProportionY: number}, destPane: {scrollProportionY: number}) {
+    protected syncY(sourcePane: { readonly scrollProportionY: number }, destPane: { scrollProportionY: number }) {
         destPane.scrollProportionY = sourcePane.scrollProportionY;
     }
 
-    protected syncX(sourcePane: {readonly scrollProportionX: number}, destPane: {scrollProportionX: number}) {
+    protected syncX(sourcePane: { readonly scrollProportionX: number }, destPane: { scrollProportionX: number }) {
         destPane.scrollProportionX = sourcePane.scrollProportionX;
     }
 }
 
-export class AbsoluteScrollSyncer extends AbstractScrollSyncer{
+export class AbsoluteScrollSyncer extends AbstractScrollSyncer {
     public constructor(props ?: ScrollSyncerOptions) {
         super(props ?? {});
     }

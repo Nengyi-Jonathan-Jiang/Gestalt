@@ -1,10 +1,8 @@
 import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import {Item} from "@/gestalt/item";
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {ReactElement} from "react";
 import {ContentItem} from "@/gestalt/contentItem";
 import {TopicAccess} from "@/gestalt/editor/topicAccess";
-import {Topic} from "@/gestalt/topic";
 
 export class PrivateItemWriteAccess<T extends Item = Item> implements ItemWriteAccess<T> {
     private readonly item: T;
