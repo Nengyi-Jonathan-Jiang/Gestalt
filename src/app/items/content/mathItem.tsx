@@ -5,7 +5,7 @@ import {BasicContentItem} from "@/app/items/basicContentItem";
 export class MathItem extends BasicContentItem {
     public render(): ReactElement {
         return <div className="math-item">
-            <DisplayMathTex>{this.value}</DisplayMathTex>
+            <DisplayMathTex>{this.state}</DisplayMathTex>
         </div>
     }
 }

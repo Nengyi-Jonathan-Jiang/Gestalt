@@ -3,14 +3,14 @@
 import {createContext, ReactElement, ReactNode, RefObject, useContext, useEffect, useRef} from "react";
 import katex from "katex"
 
+export type TexMacros = { [macroName: string]: string }
 
-type TexMacros = { [macroName: string]: string }
-
-interface TexOptions {
+export interface TexOptions {
     displayMode?: boolean | undefined,
     macros?: TexMacros | undefined
 }
 
+/** DO NOT export this; instead, users should use {@link TexMacroProvider} */
 const TexMacroContext = createContext<TexMacros>({})
 
 /**
@@ -73,7 +73,6 @@ function BasicTex<T extends ReactElement, U extends HTMLElement>({
 
                 delete elRef.current.dataset.error;
             } catch (e) {
-                // console.warn(e);
                 elRef.current.innerText = source
                 elRef.current.dataset.error = '';
             }

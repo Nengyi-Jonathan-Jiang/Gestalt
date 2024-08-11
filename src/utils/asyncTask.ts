@@ -22,7 +22,7 @@ export class AsyncTask<T> implements PromiseLike<T> {
      */
     constructor(promiseProvider: () => Promise<T>, lazy: boolean = false) {
         this.startPromise = promiseProvider;
-        this.#promise = new Promise<T>((resolve, reject) => {
+        this.#promise = new Promise<T>((resolve, _reject) => {
             this.startPromise = () => promiseProvider().then(value => {
                 this.#value = value;
                 this.#isFinished = true;

@@ -1,17 +1,17 @@
 import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
-import {Item} from "@/gestalt/item";
-import {Topic} from "@/gestalt/topic";
+import {Item} from "@/gestalt/item/item";
+import {Topic} from "@/gestalt/topic/topic";
 
 type UpdateCallback = (() => any);
 
 export class GestaltEditor {
     public readonly gestaltAccess: GestaltAccess;
     public currentTopicAccess: TopicAccess | null = null;
-    public currentItemAccess: ItemWriteAccess | null = null;
+    public currentItemAccess: ItemWriteAccess<Item> | null = null;
 
-    public get currentTopic(): Topic | null {
+    public get currentTopic(): Readonly<Topic> | null {
         return this.currentTopicAccess?._getTopic() ?? null;
     }
 
@@ -42,12 +42,12 @@ export class GestaltEditor {
         return true;
     }
 
-    public async tryViewTopic(topicName: string): Promise<boolean> {
-        if (topicName == this.currentTopicAccess?.getTopicName()) {
+    public async tryViewTopic(topicID: number): Promise<boolean> {
+        if (topicID == this.currentTopic?.id) {
             return false;
         }
 
-        if (!await this.requestSharedTopicAccess(topicName)) {
+        if (!await this.requestSharedTopicAccess(topicID)) {
             return false;
         }
 
@@ -173,12 +173,12 @@ export class GestaltEditor {
         return true;
     }
 
-    private async requestSharedTopicAccess(topicName: string): Promise<boolean> {
-        if (this.currentTopicAccess && this.currentTopicAccess.getTopicName() == topicName) {
+    private async requestSharedTopicAccess(topicID: number): Promise<boolean> {
+        if (this.currentTopicAccess && this.currentTopicAccess._getTopic().id == topicID) {
             return true;
         }
 
-        const access = await this.gestaltAccess.requestSharedTopicAccess(topicName);
+        const access = await this.gestaltAccess.requestSharedTopicAccess(topicID);
 
         if (access == null) {
             return false;
@@ -208,7 +208,7 @@ export class GestaltEditor {
                 );
             }
 
-            this.currentTopicAccess?.returnItemWriter(this.currentItemAccess as ItemWriteAccess);
+            this.currentTopicAccess?.returnItemWriter(this.currentItemAccess as ItemWriteAccess<Item>);
         }
         this.currentItemAccess = null;
     }

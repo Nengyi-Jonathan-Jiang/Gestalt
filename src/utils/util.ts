@@ -1,5 +1,7 @@
 import {DependencyList, RefObject, useEffect, useState} from "react";
 
+export type ConstructorFor<T> = (new(...args: any[]) => T);
+
 /**
  * Creates an array with a specified length and fills it with values.
  * @param length The length of the array to be created

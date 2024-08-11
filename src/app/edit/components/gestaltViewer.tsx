@@ -2,16 +2,18 @@ import {useManualRerender} from "@/utils/util";
 import React, {Fragment, useContext} from "react";
 import {EditorContext} from "@/app/edit/editorContext";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
+import {NameItem} from "@/app/items/property/nameItem";
+import {Topic} from "@/gestalt/topic/topic";
 
-function GestaltTopic({editor, topicName, tryViewTopic}: {
+function GestaltTopic({editor, topic, tryViewTopic}: {
     editor: GestaltEditor,
-    topicName: string,
+    topic: Readonly<Topic>,
     tryViewTopic: () => void
 }) {
     return <Fragment>
-        <div className={editor.currentTopicAccess?._getTopic()?.name == topicName ? "active" : undefined}
+        <div className={editor.currentTopic == topic ? "active" : undefined}
              onClick={tryViewTopic}>
-            {topicName}
+            {topic.getMetadata(NameItem).state}
         </div>
     </Fragment>;
 }
@@ -22,11 +24,11 @@ function GestaltTopicsList() {
 
     return <div id="topics-list">
         {
-            data.topicNames.map(topicName =>
-                <GestaltTopic key={topicName} editor={editor} topicName={topicName} tryViewTopic={() => {
-                    const success = editor.tryViewTopic(topicName);
+            data.topics.map(topic =>
+                <GestaltTopic key={topic.id} editor={editor} topic={topic} tryViewTopic={() => {
+                    const success = editor.tryViewTopic(topic.id);
                     if (!success) {
-                        alert(`Unable to edit topic ${topicName}.`)
+                        alert(`Unable to edit topic ${topic.getMetadata(NameItem).state}.`)
                     }
                 }}/>)
         }

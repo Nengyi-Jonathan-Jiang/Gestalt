@@ -47,44 +47,10 @@ main > div {
     display: none;
 }
 
-.delete-button, .close-button {
-    position:   relative;
-    display:    block;
-    width:      24px;
-    height:     24px;
-    background: radial-gradient(#fff, #0000);
-    border:     0;
-    outline:    none;
-    padding:    0;
-    margin:     0;
-}
-
 .topic-item .delete-button {
     position: absolute;
     top:      4px;
     right:    5px;
-}
-
-:is(.close-button, .delete-button)::after {
-    content:           "";
-    display:           block;
-    position:          absolute;
-    top:               0;
-    left:              0;
-    width:             100%;
-    height:            100%;
-
-    -webkit-mask-size: cover;
-}
-
-.close-button::after {
-    -webkit-mask-image: url("../../_assets/icons/close-icon.svg");
-    background:         #48f;
-}
-
-.delete-button::after {
-    -webkit-mask-image: url("../../_assets/icons/delete-icon.svg");
-    background:         #f48;
 }
 
 .paragraph-item {
@@ -105,16 +71,6 @@ main > div {
 /*    content: "";*/
 /*}*/
 
-.topic-item-insert-line:is(:hover, :last-child)::before {
-    height: 3px;
-    border: 2px #ccc solid;
-}
-
-.topic-item-insert-line:last-child {
-    top:           10px;
-    margin-bottom: 15px;
-}
-
 
 #selected-topic > #selected-topic-editor {
     min-height:  50vh;
@@ -123,64 +79,13 @@ main > div {
     flex-basis:  50vh;
 }
 
-.topic-item-insert-line::before {
-    content:    "";
-    display:    block;
-    width:      100%;
-    height:     1px;
-    border-top: 1px dashed #8883;
-    position:   absolute;
-}
-
-
-.topic-item-insert-line {
-    position:        relative;
-    overflow:        visible;
-    height:          8px;
-    margin-left:     10px;
-    margin-right:    10px;
-    display:         flex;
-    align-items:     center;
-    justify-content: center;
-    z-index:         1;
-}
-
-.topic-item-insert-line:not(:is(:hover, :last-child)) > button {
-    display: none;
-}
-
-.topic-item-insert-line > button {
-    outline:         none;
-    border:          0;
-    background:      #ccc;
-    padding:         0;
-    color:           white;
-    border-radius:   50%;
-    font-size:       170%;
-    font-family:     "Raleway", Arial, sans-serif;
-    z-index:         2;
-    width:           .7em;
-    height:          .7em;
-    display:         flex;
-    align-items:     center;
-    justify-content: center;
-}
-
-.topic-item-insert-line > button::after {
-    content: "+";
-}
-
 .math-item {
     padding: 8px 12px;
-    display: block;
-}
-
-.math-item {
     overflow-x:      auto;
-    overflow-y:      visible;
     display:         flex;
     justify-content: center;
     align-items:     center;
+    height: fit-content;
 }
 
 .math-item::-webkit-scrollbar {

@@ -27,7 +27,7 @@ export interface GestaltAccess {
      *
      * @returns Shared access to the topic created, or null if access could not be obtained
      */
-    requestSharedTopicAccess(name: string): Promise<TopicAccess | null>;
+    requestSharedTopicAccess(id: number): Promise<TopicAccess | null>;
 
     /**
      * Return shared access to a topic.

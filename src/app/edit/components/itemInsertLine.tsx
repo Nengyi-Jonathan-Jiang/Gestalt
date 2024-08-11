@@ -1,9 +1,11 @@
-import {Item} from "@/gestalt/item";
+import {Item} from "@/gestalt/item/item";
 import React, {RefObject, useContext, useState} from "react";
 import Modal from "react-modal";
 import {EditorContext} from "@/app/edit/editorContext";
 import {toArray} from "@/utils/util";
-import {ContentItem, ContentItemTypeRegistryEntry} from "@/gestalt/contentItem";
+import {ContentItem, ContentItemTypeRegistryEntry} from "@/gestalt/item/contentItem";
+
+import "./itemInsertLine.css";
 
 function AddItemButton({contentItemTypeEntry: {constructor, displayName}, closeModal, action}: {
     contentItemTypeEntry: Readonly<ContentItemTypeRegistryEntry>,

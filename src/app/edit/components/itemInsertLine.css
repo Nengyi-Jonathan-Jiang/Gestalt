@@ -1,0 +1,68 @@
+
+.topic-item-insert-line:is(:hover, :last-child)::before {
+    height: 3px;
+    border: 2px #ccc solid;
+}
+
+.topic-item-insert-line:last-child {
+    margin-top: 15px;
+}
+
+.topic-item-insert-line:first-child {
+    margin-top: 5px;
+}
+
+.topic-item-insert-line:last-child {
+    margin-bottom: 6px;
+}
+
+.topic-item-insert-line::before {
+    content:    "";
+    display:    block;
+    width:      100%;
+    height:     1px;
+    border-top: 1px dashed #8883;
+    position:   absolute;
+}
+
+
+.topic-item-insert-line {
+    position:        relative;
+    overflow:        visible;
+    height:          8px;
+    margin-left:     10px;
+    margin-right:    10px;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    z-index:         1;
+}
+
+.topic-item-insert-line:not(:is(:hover, :last-child)) > button {
+    display: none;
+}
+
+.topic-item-insert-line > button {
+    outline:         none;
+    border:          0;
+    background:      #ccc;
+    padding:         0;
+    color:           white;
+    border-radius:   50%;
+    z-index:         2;
+    width:           24px;
+    height:          24px;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    overflow:        hidden;
+}
+
+.topic-item-insert-line > button::after {
+    display:            block;
+    content:            "";
+    width:              24px;
+    height:             24px;
+    -webkit-mask-image: url("../../../_assets/icons/add-icon.svg");
+    background:         white;
+}

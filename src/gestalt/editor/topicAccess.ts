@@ -1,8 +1,10 @@
-import type {Item} from "@/gestalt/item";
+import type {Item} from "@/gestalt/item/item";
 import type {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
-import type {Topic} from "@/gestalt/topic";
-import type {ContentItem} from "@/gestalt/contentItem";
-import {MetadataItem} from "@/gestalt/metadataItem";
+import type {Topic} from "@/gestalt/topic/topic";
+import type {ContentItem} from "@/gestalt/item/contentItem";
+import {PropertyItem} from "@/gestalt/item/propertyItem";
+import {ConstructorFor} from "@/utils/util";
+
 
 export interface TopicAccess {
     getTopicName(): string;
@@ -14,29 +16,32 @@ export interface TopicAccess {
      *
      * @returns Write access to the topic created, or null if the topic could not be created
      */
-    insertContentItem(before: Item | null, itemSupplier: () => Item): Promise<ItemWriteAccess | null>;
+    insertContentItem<T extends ContentItem>(
+        before: ContentItem | null,
+        itemSupplier: () => T
+    ): Promise<ItemWriteAccess<T> | null>;
 
     /**
      * Deletes the topic with the given name
      *
      * @returns Whether the topic was successfully deleted.
      */
-    deleteContentItem(item: ItemWriteAccess): Promise<boolean>;
+    deleteContentItem(item: ItemWriteAccess<ContentItem>): Promise<boolean>;
 
     /**
      * Request write access to an item.
      */
-    requestItemWriter(item: Item): Promise<ItemWriteAccess | null>;
+    requestItemWriter<State_t>(item: Item<State_t>): Promise<ItemWriteAccess<Item> | null>;
 
-    getMetadataItem<T extends typeof MetadataItem>(itemType: T): InstanceType<T>;
+    getProperty<T extends ConstructorFor<PropertyItem>>(itemType: T): Readonly<InstanceType<T>>;
 
     /**
-     * Return write access to a topic.
+     * Return write access to an item.
      */
-    returnItemWriter(itemWriter: ItemWriteAccess): void;
+    returnItemWriter(itemWriter: ItemWriteAccess<ContentItem>): void;
 
     /** This method should only be used to get read-only access to the topic */
-    _getTopic(): Topic;
+    _getTopic(): Readonly<Topic>;
 
     /**
      * Indicate that an edit has been made

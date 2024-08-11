@@ -1,8 +1,9 @@
 import type {Metadata} from "next";
 import "./globals.css";
+import "../_assets/katex/katex.min.css"
+
 import React from "react";
 
-import "../_assets/katex/katex.min.css"
 
 export const metadata: Metadata = {
     title: "Gestalt",

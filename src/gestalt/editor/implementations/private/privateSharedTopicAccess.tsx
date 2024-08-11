@@ -1,12 +1,13 @@
-import {Topic} from "@/gestalt/topic";
+import {Topic} from "@/gestalt/topic/topic";
 import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {PrivateItemWriteAccess} from "@/gestalt/editor/implementations/private/privateItemWriteAccess";
 import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
-import {ContentItem} from "@/gestalt/contentItem";
-import {Item} from "@/gestalt/item";
-import {BasicContentItem} from "@/app/items/basicContentItem";
-import {MetadataItem} from "@/gestalt/metadataItem";
+import {ContentItem} from "@/gestalt/item/contentItem";
+import {Item} from "@/gestalt/item/item";
+import {PropertyItem} from "@/gestalt/item/propertyItem";
+import {NameItem} from "@/app/items/property/nameItem";
+import {ConstructorFor} from "@/utils/util";
 
 export class PrivateSharedTopicAccess implements TopicAccess {
     protected readonly topic: Topic;
@@ -26,10 +27,10 @@ export class PrivateSharedTopicAccess implements TopicAccess {
     }
 
     getTopicName(): string {
-        return this.topic.name
+        return this.topic.getMetadata(NameItem).state
     }
 
-    async insertContentItem(before: ContentItem | null, itemSupplier: () => BasicContentItem): Promise<ItemWriteAccess | null> {
+    async insertContentItem<T extends ContentItem>(before: ContentItem | null, itemSupplier: () => T): Promise<ItemWriteAccess<T> | null> {
         const topicContent = this.topic.content;
         const createdItem = itemSupplier();
 
@@ -63,15 +64,15 @@ export class PrivateSharedTopicAccess implements TopicAccess {
         return false;
     }
 
-    async requestItemWriter(item: Item): Promise<ItemWriteAccess | null> {
+    async requestItemWriter<T extends Item>(item: T): Promise<ItemWriteAccess<T> | null> {
         return new PrivateItemWriteAccess(item, this);
     }
 
-    getMetadataItem<T extends typeof MetadataItem>(itemType: T): InstanceType<T> {
-        return this.topic.metadata.get(itemType);
+    getProperty<T extends ConstructorFor<PropertyItem>>(itemType: T): InstanceType<T> {
+        return this.topic.getMetadata(itemType);
     }
 
-    returnItemWriter(_itemWriter: ItemWriteAccess): void {
+    returnItemWriter(_itemWriter: ItemWriteAccess<Item>): void {
         // Do nothing
     }
 

@@ -1,4 +1,4 @@
-import type {ContentItem} from "@/gestalt/contentItem";
+import type {ContentItem} from "@/gestalt/item/contentItem";
 
 export class TopicContent {
     private readonly items: ContentItem[]
@@ -42,4 +42,3 @@ export class TopicContent {
         return this.items.length
     }
 }
-

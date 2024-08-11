@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/lz-string": "^1.5.0",
     "katex": "^0.16.11",
+    "lz-string": "^1.5.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
@@ -23,16 +25,23 @@
     "@types/react-dom": "^18",
     "@types/react-modal": "^3.16.3",
     "@types/socket.io": "^3.0.2",
-    "typescript": "^5",
-    "madge": "^8.0.0"
+    "madge": "^8.0.0",
+    "typescript": "^5"
   },
   "madge": {
     "tsConfig": "./tsconfig.json",
-    "fileExtensions": ["ts", "tsx"],
+    "fileExtensions": [
+      "ts",
+      "tsx"
+    ],
     "detectiveOptions": {
       "ts": {
         "skipTypeImports": true
       }
-    }
+    },
+    "excludeRegExp": [
+      "tex",
+      "utils"
+    ]
   }
 }

@@ -3,6 +3,8 @@ import {GestaltViewData} from "@/gestalt/editor/gestaltViewData";
 import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
 import {Gestalt} from "@/gestalt/gestalt";
 import {PrivateSharedTopicAccess} from "@/gestalt/editor/implementations/private/privateSharedTopicAccess";
+import {NameItem} from "@/app/items/property/nameItem";
+import {compressToBase64, compressToUTF16} from 'lz-string'
 
 export class PrivateGestaltAccess implements GestaltAccess {
     private readonly gestalt: Gestalt;
@@ -24,14 +26,14 @@ export class PrivateGestaltAccess implements GestaltAccess {
         return new PrivateSharedTopicAccess(newTopic, this);
     }
 
-    async deleteTopic(topic: TopicAccess): Promise<boolean> {
-        const success = this.gestalt.deleteTopic(topic._getTopic().name);
+    async deleteTopic(topicAccess: TopicAccess): Promise<boolean> {
+        const success = this.gestalt.deleteTopic(topicAccess._getTopic().getMetadata(NameItem).state);
         this.markChanged();
         return success;
     }
 
-    async requestSharedTopicAccess(name: string): Promise<TopicAccess | null> {
-        const topic = this.gestalt.getTopicByName(name);
+    async requestSharedTopicAccess(topicID: number): Promise<TopicAccess | null> {
+        const topic = this.gestalt.getTopicByID(topicID);
         if (topic == null) {
             return null;
         }
@@ -43,9 +45,11 @@ export class PrivateGestaltAccess implements GestaltAccess {
     }
 
     markChanged(): void {
-        const saveString = JSON.stringify(this.gestalt.toJSON());
+        const saveString = JSON.stringify(this.gestalt.toJSON(), null, 2);
         const saveKey = `gestalt:${this.gestalt.name}`;
         window.localStorage.setItem(saveKey, saveString);
+
+        window.localStorage.setItem('lz-' + saveKey, compressToUTF16(saveString));
     }
 
     disconnect(): void {

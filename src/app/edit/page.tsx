@@ -2,6 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import "./style.css"
+import "./button-style.css"
 import {PrivateGestaltAccess} from "@/gestalt/editor/implementations/private/privateGestaltAccess";
 import {Gestalt} from "@/gestalt/gestalt";
 import {EditorContext} from "@/app/edit/editorContext";

@@ -1,6 +1,8 @@
-import {Topic, TopicJSONData} from "@/gestalt/topic";
-import {TopicContent} from "@/gestalt/topicContent";
-import {JSONifyable} from "@/utils/JSONifyable";
+import {Topic, TopicJSONData} from "@/gestalt/topic/topic";
+import {TopicContent} from "@/gestalt/topic/topicContent";
+import {JSON_ifyable} from "@/utils/JSON_ifyable";
+import {NameItem} from "@/app/items/property/nameItem";
+import {TopicProperties} from "@/gestalt/topic/topicProperties";
 
 type GestaltJSONData = {
     nextTopicID: number,
@@ -8,7 +10,7 @@ type GestaltJSONData = {
     topics: TopicJSONData[]
 }
 
-export class Gestalt implements JSONifyable<GestaltJSONData> {
+export class Gestalt implements JSON_ifyable<GestaltJSONData> {
     private readonly _allTopics: Map<number, Topic>;
     public name: string;
     public nextTopicID: number = 0;
@@ -49,7 +51,11 @@ export class Gestalt implements JSONifyable<GestaltJSONData> {
     }
 
     public getTopicByName(name: string): Topic | null {
-        return [...this._allTopics.values()].find(i => i.name === name) ?? null;
+        return [...this._allTopics.values()].find((i: Topic) => i.getMetadata(NameItem).state === name) ?? null;
+    }
+
+    public getTopicByID(id: number): Topic | null {
+        return this._allTopics.get(id) ?? null;
     }
 
     public addTopic(name: string, ...parentTopicNames: string[]): Topic {
@@ -66,7 +72,9 @@ export class Gestalt implements JSONifyable<GestaltJSONData> {
             }
         }
 
-        const topic = new Topic(this.nextTopicID++, name, new TopicContent())
+        const topic = new Topic(this.nextTopicID++, new TopicContent(), new TopicProperties())
+        topic.getMetadata(NameItem).state = name;
+
         this._allTopics.set(topic.id, topic);
 
         return topic
