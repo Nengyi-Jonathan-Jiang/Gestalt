@@ -12,7 +12,7 @@ export interface GestaltAccess {
      *
      * @returns Elevated access to the topic created, or null if the topic could not be created
      */
-    addTopic(name: string, ...parentTopics: string[]): Promise<TopicAccess | null>;
+    addTopic(): Promise<TopicAccess | null>;
 
     /**
      * Deletes the topic with the given name

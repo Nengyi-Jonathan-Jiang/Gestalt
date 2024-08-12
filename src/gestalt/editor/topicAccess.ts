@@ -2,13 +2,11 @@ import type {Item} from "@/gestalt/item/item";
 import type {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import type {Topic} from "@/gestalt/topic/topic";
 import type {ContentItem} from "@/gestalt/item/contentItem";
-import {PropertyItem} from "@/gestalt/item/propertyItem";
-import {ConstructorFor} from "@/utils/util";
+import type {PropertyItem} from "@/gestalt/item/propertyItem";
+import type {ConstructorFor} from "@/utils/util";
 
 
 export interface TopicAccess {
-    getTopicName(): string;
-
     getTopicContentItems(): ContentItem[];
 
     /**
@@ -31,7 +29,7 @@ export interface TopicAccess {
     /**
      * Request write access to an item.
      */
-    requestItemWriter<State_t>(item: Item<State_t>): Promise<ItemWriteAccess<Item> | null>;
+    requestItemWriter<State_t>(item: Item<State_t>): Promise<ItemWriteAccess | null>;
 
     getProperty<T extends ConstructorFor<PropertyItem>>(itemType: T): Readonly<InstanceType<T>>;
 

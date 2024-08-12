@@ -1,5 +1,5 @@
-import {Gestalt} from "@/gestalt/gestalt";
-import {Topic} from "@/gestalt/topic/topic";
+import type {Gestalt} from "@/gestalt/gestalt";
+import type {Topic} from "@/gestalt/topic/topic";
 
 /**
  * Represents all the data needed to render the Gestalt

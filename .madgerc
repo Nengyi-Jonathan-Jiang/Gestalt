@@ -1,0 +1,18 @@
+{
+    "tsConfig": "./tsconfig.json",
+    "fileExtensions": [
+      "ts",
+      "tsx"
+    ],
+    "detectiveOptions": {
+      "ts": {
+        "skipTypeImports": true
+      }
+    },
+    "excludeRegExp": [
+      "\\btex\\b",
+      "\\butils\\b",
+      "\\.css"
+    ],
+    "rankdir": "TB"
+}

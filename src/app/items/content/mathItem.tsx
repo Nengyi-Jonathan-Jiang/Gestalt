@@ -1,4 +1,4 @@
-import {ReactElement} from "react";
+import type {ReactElement} from "react";
 import {DisplayMathTex} from "@/tex/Tex";
 import {BasicContentItem} from "@/app/items/basicContentItem";
 

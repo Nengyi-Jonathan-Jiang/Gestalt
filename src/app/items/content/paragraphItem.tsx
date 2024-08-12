@@ -1,10 +1,10 @@
-import {Fragment, ReactElement} from "react";
+import {Fragment, type ReactElement} from "react";
 import {MathTex} from "@/tex/Tex";
 import {BasicContentItem} from "@/app/items/basicContentItem";
 
 export class ParagraphItem extends BasicContentItem {
     public render(): ReactElement {
-        // TODO: add TEX functionality
+        // Add markdown-like bold and italics
 
         // Process source
         const source_parts: string[] = this.state.split(/(?<!\\)(?:\$\{|}\$)/g);

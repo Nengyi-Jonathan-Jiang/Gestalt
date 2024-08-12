@@ -1,5 +1,5 @@
-import {JSON_ifyable} from "@/utils/JSON_ifyable";
-import {ReactElement, RefObject} from "react";
+import type {JSON_ifyable} from "@/utils/JSON_ifyable";
+import type {ReactElement, RefObject} from "react";
 
 export type ItemJSONData<StateType = any> = {
     type: string,

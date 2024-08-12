@@ -1,7 +1,7 @@
 import {PropertyItem} from "@/gestalt/item/propertyItem";
-import {InPlaceJSON_ifyable} from "@/utils/JSON_ifyable";
-import {ItemJSONData} from "@/gestalt/item/item";
-import {ConstructorFor, toArray} from "@/utils/util";
+import {type InPlaceJSON_ifyable} from "@/utils/JSON_ifyable";
+import {type ItemJSONData} from "@/gestalt/item/item";
+import {type ConstructorFor, toArray} from "@/utils/util";
 
 /**
  * A class representing the properties of a {@link Topic}. Stores exactly a single instance of each type

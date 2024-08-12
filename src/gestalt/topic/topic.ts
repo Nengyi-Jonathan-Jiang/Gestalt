@@ -1,9 +1,8 @@
 import {TopicContent} from "@/gestalt/topic/topicContent";
-import {JSON_ifyable} from "@/utils/JSON_ifyable";
-import {ItemJSONData} from "@/gestalt/item/item";
-import {ContentItem} from "@/gestalt/item/contentItem";
 import {TopicProperties} from "@/gestalt/topic/topicProperties";
-import {PropertyItem} from "@/gestalt/item/propertyItem";
+import type {JSON_ifyable} from "@/utils/JSON_ifyable";
+import type {ItemJSONData} from "@/gestalt/item/item";
+import type {PropertyItem} from "@/gestalt/item/propertyItem";
 import {ConstructorFor} from "@/utils/util";
 
 
@@ -19,17 +18,17 @@ export class Topic implements JSON_ifyable<TopicJSONData> {
     private readonly properties: TopicProperties;
     public readonly content: TopicContent;
 
-    constructor(id: number, content: TopicContent, metadata: TopicProperties) {
+    constructor(id: number, content?: TopicContent, metadata?: TopicProperties) {
         this.id = id;
+        this.content = content ?? new TopicContent;
         this.properties = metadata ?? new TopicProperties;
-        this.content = content;
     }
 
     toJSON(): TopicJSONData {
         return {
             id: this.id,
             metadata: this.properties.toJSON(),
-            content: this.content.map(i => i.toJSON())
+            content: this.content.toJSON()
         }
     }
 
@@ -42,15 +41,13 @@ export class Topic implements JSON_ifyable<TopicJSONData> {
         target.properties.updateFromJSON(metadata);
 
         // @ts-ignore
-        target['content'] = new TopicContent(
-            ...content.map(i => ContentItem.prototype.fromJSON(i) as ContentItem<any>)
-        );
+        target['content'] = TopicContent.prototype.fromJSON(content);
 
         // @ts-ignore
         return target;
     }
 
-    getMetadata<T extends ConstructorFor<PropertyItem>>(metadataItemType: T): InstanceType<T> {
+    getProperty<T extends ConstructorFor<PropertyItem>>(metadataItemType: T): InstanceType<T> {
         return this.properties.get(metadataItemType);
     }
 }

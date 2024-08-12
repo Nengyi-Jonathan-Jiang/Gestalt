@@ -1,9 +1,8 @@
-import {ItemEditingModeRenderResult} from "@/gestalt/item/item";
-import {ReactElement, RefObject} from "react";
+import type {ItemEditingModeRenderResult} from "@/gestalt/item/item";
+import type {ReactElement, RefObject} from "react";
 
-import "./nameItem.css";
 import {PropertyItem} from "@/gestalt/item/propertyItem";
-import {TexMacros} from "@/tex/Tex";
+import type {TexMacros} from "@/tex/Tex";
 
 interface TexMacrosState {
     macros: { name: string; value: string }[];

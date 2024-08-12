@@ -3,15 +3,15 @@
 import React, {useEffect, useState} from "react";
 import "./style.css"
 import "./button-style.css"
-import {PrivateGestaltAccess} from "@/gestalt/editor/implementations/private/privateGestaltAccess";
+import {PrivateGestaltAccess} from "@/localGestalt/privateGestaltAccess";
 import {Gestalt} from "@/gestalt/gestalt";
 import {EditorContext} from "@/app/edit/editorContext";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
 import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
-import {useManualRerender} from "@/utils/util";
 import {SelectedTopicViewer} from "@/app/edit/components/selectedTopicViewer";
 import {GestaltView} from "@/app/edit/components/gestaltViewer";
 import {registerItemTypes} from "@/app/items/allItems";
+import {useManualRerender} from "@/utils/react-utils/hooks";
 
 function EditorMiddle() {
     return <div id='editor-middle'></div>;
