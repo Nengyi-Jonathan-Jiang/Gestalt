@@ -1,5 +1,6 @@
-import {Item, ItemJSONData} from "@/gestalt/item/item";
-import {ConstructorFor} from "@/utils/util";
+import {Item, ItemEditingModeRenderResult, type ItemJSONData} from "@/gestalt/item/item";
+import type {ConstructorFor} from "@/utils/util";
+import type {ReactElement, RefObject} from "react";
 
 
 export interface PropertyItemTypeRegistryEntry<State_t = any> {

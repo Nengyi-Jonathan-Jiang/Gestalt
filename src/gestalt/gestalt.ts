@@ -1,8 +1,5 @@
-import {Topic, TopicJSONData} from "@/gestalt/topic/topic";
-import {TopicContent} from "@/gestalt/topic/topicContent";
-import {JSON_ifyable} from "@/utils/JSON_ifyable";
-import {NameItem} from "@/app/items/property/nameItem";
-import {TopicProperties} from "@/gestalt/topic/topicProperties";
+import {Topic, type TopicJSONData} from "@/gestalt/topic/topic";
+import {type JSON_ifyable} from "@/utils/JSON_ifyable";
 
 type GestaltJSONData = {
     nextTopicID: number,
@@ -50,38 +47,20 @@ export class Gestalt implements JSON_ifyable<GestaltJSONData> {
         return [...this._allTopics.values()];
     }
 
-    public getTopicByName(name: string): Topic | null {
-        return [...this._allTopics.values()].find((i: Topic) => i.getMetadata(NameItem).state === name) ?? null;
-    }
-
     public getTopicByID(id: number): Topic | null {
         return this._allTopics.get(id) ?? null;
     }
 
-    public addTopic(name: string, ...parentTopicNames: string[]): Topic {
-        const existingTopic: Topic | null = this.getTopicByName(name);
-        if (existingTopic != null) {
-            return existingTopic;
-        }
-
-        const parentTopics = [];
-        for (const name of parentTopicNames) {
-            const parentTopic = this.getTopicByName(name);
-            if (parentTopic != null) {
-                parentTopics.push(parentTopic);
-            }
-        }
-
-        const topic = new Topic(this.nextTopicID++, new TopicContent(), new TopicProperties())
-        topic.getMetadata(NameItem).state = name;
+    public addTopic(): Topic {
+        const topic = new Topic(this.nextTopicID++)
 
         this._allTopics.set(topic.id, topic);
 
         return topic
     }
 
-    public deleteTopic(name: string): boolean {
-        const topic = this.getTopicByName(name);
+    public deleteTopic(id: number): boolean {
+        const topic = this.getTopicByID(id);
 
         if (topic !== null) {
             this._allTopics.delete(topic.id);

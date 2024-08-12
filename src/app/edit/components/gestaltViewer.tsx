@@ -1,9 +1,9 @@
-import {useManualRerender} from "@/utils/util";
 import React, {Fragment, useContext} from "react";
 import {EditorContext} from "@/app/edit/editorContext";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
 import {NameItem} from "@/app/items/property/nameItem";
 import {Topic} from "@/gestalt/topic/topic";
+import {useManualRerender} from "@/utils/react-utils/hooks";
 
 function GestaltTopic({editor, topic, tryViewTopic}: {
     editor: GestaltEditor,
@@ -13,7 +13,7 @@ function GestaltTopic({editor, topic, tryViewTopic}: {
     return <Fragment>
         <div className={editor.currentTopic == topic ? "active" : undefined}
              onClick={tryViewTopic}>
-            {topic.getMetadata(NameItem).state}
+            {topic.getProperty(NameItem).state}
         </div>
     </Fragment>;
 }
@@ -28,7 +28,7 @@ function GestaltTopicsList() {
                 <GestaltTopic key={topic.id} editor={editor} topic={topic} tryViewTopic={() => {
                     const success = editor.tryViewTopic(topic.id);
                     if (!success) {
-                        alert(`Unable to edit topic ${topic.getMetadata(NameItem).state}.`)
+                        alert(`Unable to edit topic ${topic.getProperty(NameItem).state}.`)
                     }
                 }}/>)
         }
@@ -50,7 +50,7 @@ function GestaltButtons() {
                 // Capitalize the first letter
                 name = name.charAt(0).toUpperCase() + name.slice(1);
 
-                if (name.length === 0 || !await editor.tryAddTopic(name)) {
+                if (name.length === 0 || !await editor.tryAddTopic()) {
                     alert('Unable to create topic.')
                 }
             }

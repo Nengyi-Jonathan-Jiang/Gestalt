@@ -1,9 +1,9 @@
-import {ItemEditingModeRenderResult} from "@/gestalt/item/item";
-import {ReactElement, RefObject, useContext} from "react";
+import type {ItemEditingModeRenderResult} from "@/gestalt/item/item";
+import {type ReactElement, type RefObject, useContext} from "react";
 
-import "./nameItem.css";
 import {PropertyItem} from "@/gestalt/item/propertyItem";
 import {EditorContext} from "@/app/edit/editorContext";
+import "./nameItem.css";
 
 function NameItemEditingMode({value, editorElementRef}: {
     value: string,

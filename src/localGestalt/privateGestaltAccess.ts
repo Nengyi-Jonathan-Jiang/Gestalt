@@ -1,10 +1,8 @@
-import {TopicAccess} from "@/gestalt/editor/topicAccess";
+import type {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {GestaltViewData} from "@/gestalt/editor/gestaltViewData";
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
-import {Gestalt} from "@/gestalt/gestalt";
-import {PrivateSharedTopicAccess} from "@/gestalt/editor/implementations/private/privateSharedTopicAccess";
-import {NameItem} from "@/app/items/property/nameItem";
-import {compressToBase64, compressToUTF16} from 'lz-string'
+import type {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
+import type {Gestalt} from "@/gestalt/gestalt";
+import {PrivateSharedTopicAccess} from "@/localGestalt/privateSharedTopicAccess";
 
 export class PrivateGestaltAccess implements GestaltAccess {
     private readonly gestalt: Gestalt;
@@ -17,9 +15,9 @@ export class PrivateGestaltAccess implements GestaltAccess {
         return new GestaltViewData(this.gestalt);
     }
 
-    async addTopic(name: string, ...parentTopics: string[]): Promise<TopicAccess | null> {
+    async addTopic(): Promise<TopicAccess | null> {
 
-        const newTopic = this.gestalt.addTopic(name, ...parentTopics);
+        const newTopic = this.gestalt.addTopic();
 
         this.markChanged();
 
@@ -27,7 +25,7 @@ export class PrivateGestaltAccess implements GestaltAccess {
     }
 
     async deleteTopic(topicAccess: TopicAccess): Promise<boolean> {
-        const success = this.gestalt.deleteTopic(topicAccess._getTopic().getMetadata(NameItem).state);
+        const success = this.gestalt.deleteTopic(topicAccess._getTopic().id);
         this.markChanged();
         return success;
     }
@@ -48,8 +46,6 @@ export class PrivateGestaltAccess implements GestaltAccess {
         const saveString = JSON.stringify(this.gestalt.toJSON(), null, 2);
         const saveKey = `gestalt:${this.gestalt.name}`;
         window.localStorage.setItem(saveKey, saveString);
-
-        window.localStorage.setItem('lz-' + saveKey, compressToUTF16(saveString));
     }
 
     disconnect(): void {

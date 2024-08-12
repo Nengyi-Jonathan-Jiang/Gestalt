@@ -27,21 +27,5 @@
     "@types/socket.io": "^3.0.2",
     "madge": "^8.0.0",
     "typescript": "^5"
-  },
-  "madge": {
-    "tsConfig": "./tsconfig.json",
-    "fileExtensions": [
-      "ts",
-      "tsx"
-    ],
-    "detectiveOptions": {
-      "ts": {
-        "skipTypeImports": true
-      }
-    },
-    "excludeRegExp": [
-      "tex",
-      "utils"
-    ]
   }
 }

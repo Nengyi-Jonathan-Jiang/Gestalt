@@ -1,13 +1,12 @@
-import {Topic} from "@/gestalt/topic/topic";
-import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
-import {TopicAccess} from "@/gestalt/editor/topicAccess";
-import {PrivateItemWriteAccess} from "@/gestalt/editor/implementations/private/privateItemWriteAccess";
-import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
-import {ContentItem} from "@/gestalt/item/contentItem";
-import {Item} from "@/gestalt/item/item";
-import {PropertyItem} from "@/gestalt/item/propertyItem";
-import {NameItem} from "@/app/items/property/nameItem";
-import {ConstructorFor} from "@/utils/util";
+import type {Topic} from "@/gestalt/topic/topic";
+import type {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
+import type {TopicAccess} from "@/gestalt/editor/topicAccess";
+import {PrivateItemWriteAccess} from "@/localGestalt/privateItemWriteAccess";
+import type {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
+import type {ContentItem} from "@/gestalt/item/contentItem";
+import type {Item} from "@/gestalt/item/item";
+import type {PropertyItem} from "@/gestalt/item/propertyItem";
+import type {ConstructorFor} from "@/utils/util";
 
 export class PrivateSharedTopicAccess implements TopicAccess {
     protected readonly topic: Topic;
@@ -24,10 +23,6 @@ export class PrivateSharedTopicAccess implements TopicAccess {
 
     _getTopic(): Topic {
         return this.topic
-    }
-
-    getTopicName(): string {
-        return this.topic.getMetadata(NameItem).state
     }
 
     async insertContentItem<T extends ContentItem>(before: ContentItem | null, itemSupplier: () => T): Promise<ItemWriteAccess<T> | null> {
@@ -69,10 +64,10 @@ export class PrivateSharedTopicAccess implements TopicAccess {
     }
 
     getProperty<T extends ConstructorFor<PropertyItem>>(itemType: T): InstanceType<T> {
-        return this.topic.getMetadata(itemType);
+        return this.topic.getProperty(itemType);
     }
 
-    returnItemWriter(_itemWriter: ItemWriteAccess<Item>): void {
+    returnItemWriter(_itemWriter: ItemWriteAccess): void {
         // Do nothing
     }
 

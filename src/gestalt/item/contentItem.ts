@@ -1,4 +1,5 @@
-import {Item, ItemJSONData} from "@/gestalt/item/item";
+import {Item, ItemEditingModeRenderResult, type ItemJSONData} from "@/gestalt/item/item";
+import type {ReactElement, RefObject} from "react";
 
 /** */
 export interface ContentItemTypeRegistryEntry<State_t = any> {

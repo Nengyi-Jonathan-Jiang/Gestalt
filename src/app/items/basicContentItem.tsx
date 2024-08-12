@@ -1,12 +1,12 @@
-import React, {RefObject, useContext} from "react";
-import {ItemEditingModeRenderResult} from "@/gestalt/item/item";
+import {type RefObject, useContext} from "react";
+import {type ItemEditingModeRenderResult} from "@/gestalt/item/item";
 import {ContentItem} from "@/gestalt/item/contentItem";
 import {EditorContext} from "@/app/edit/editorContext";
 import "./basicContentItem.css"
 
 export function BasicContentItemEditor({editorElementRef, value}: {
     value: string,
-    editorElementRef: React.RefObject<HTMLElement>
+    editorElementRef: RefObject<HTMLElement>
 }) {
     const editor = useContext(EditorContext);
 

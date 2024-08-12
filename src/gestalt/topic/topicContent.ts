@@ -1,10 +1,25 @@
-import type {ContentItem} from "@/gestalt/item/contentItem";
+import {ContentItem} from "@/gestalt/item/contentItem";
+import type {JSON_ifyable} from "@/utils/JSON_ifyable";
+import type {ItemJSONData} from "@/gestalt/item/item";
 
-export class TopicContent {
+export class TopicContent implements JSON_ifyable<ItemJSONData[]> {
     private readonly items: ContentItem[]
 
     constructor(...items: ContentItem[]) {
         this.items = items;
+    }
+
+    toJSON(): ItemJSONData[] {
+        return this.items.map(i => i.toJSON());
+    }
+
+    fromJSON(json: ItemJSONData[]): this {
+        const target: TopicContent = (this === TopicContent.prototype) ? new TopicContent : this;
+
+        // @ts-ignore
+        target["items"] = json.map(i => ContentItem.prototype.fromJSON(i));
+
+        return target as this;
     }
 
     map<T>(f: (item: ContentItem) => T): T[] {

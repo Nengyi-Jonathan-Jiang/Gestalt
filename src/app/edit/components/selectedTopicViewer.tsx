@@ -1,32 +1,30 @@
-import {useManualRerender} from "@/utils/util";
-import React, {Fragment, MutableRefObject, ReactElement, RefObject, useContext, useRef} from "react";
+import {Fragment, MouseEvent, ReactElement, RefObject, useContext, useRef} from "react";
 import {EditorContext} from "@/app/edit/editorContext";
 import {ItemInsertLine} from "@/app/edit/components/itemInsertLine";
 
 import "./selectedTopicViewer.css"
-import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {Item, ItemEditingModeRenderResult} from "@/gestalt/item/item";
 import {TexMacroProvider} from "@/tex/Tex";
 import {defaultTexMacros} from "@/tex/texDefaultMacros";
-import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
 import {NameItem} from "@/app/items/property/nameItem";
 import {TexMacrosItem} from "@/app/items/property/texMacrosItem";
-import {ContentItem} from "@/gestalt/item/contentItem";
+import {RenderTimeComponentRef} from "@/utils/react-utils/renderTimeComponentRef";
+import {useManualRerender} from "@/utils/react-utils/hooks";
 
-// DO NOT convert this into a component!!
-function renderItem({editor, editorElementRef, item, itemEditor}: {
-    editor: GestaltEditor,
-    editorElementRef: React.RefObject<HTMLElement>,
+function ItemView({editorElementRef, item, itemEditorComponentRef}: {
+    editorElementRef: RefObject<HTMLElement>,
     item: Item,
-    itemEditor: React.MutableRefObject<React.ReactElement>
-}) {
+    itemEditorComponentRef: RenderTimeComponentRef
+}): ReactElement {
+    const editor = useContext(EditorContext);
+
     const isActive = editor.currentItem == item;
 
     let result: ReactElement;
     if (isActive) {
         const {selfRender, editorRender}: ItemEditingModeRenderResult = item.renderEditing(editorElementRef);
 
-        itemEditor.current = editorRender;
+        itemEditorComponentRef.current = editorRender;
 
         result = selfRender;
     }
@@ -34,7 +32,9 @@ function renderItem({editor, editorElementRef, item, itemEditor}: {
         result = item.render();
     }
 
-    return <div onClick={async _ => {
+    async function toggleActive(evt: MouseEvent<HTMLDivElement>) {
+        evt.preventDefault();
+
         if (editor.currentItem == item) {
             editor.stopEditItem();
             return;
@@ -47,17 +47,10 @@ function renderItem({editor, editorElementRef, item, itemEditor}: {
         }
 
         editorElementRef.current?.focus()
-    }}>
+    };
+    return <div onClick={toggleActive}>
         {result}
     </div>;
-}
-
-function ItemEditor({editorRef}: {
-    editorRef: { rerender: () => void, element: ReactElement }
-}) {
-    editorRef.rerender = useManualRerender();
-
-    return editorRef.element;
 }
 
 function DeleteContentItemButton() {
@@ -70,75 +63,72 @@ function DeleteContentItemButton() {
     }}></div>;
 }
 
-function TopicContent({editorElementRef, item, itemEditor}: {
-    active: boolean,
-    editorElementRef: React.RefObject<HTMLElement>,
-    item: ContentItem,
-    itemEditor: React.MutableRefObject<React.ReactElement>
+function TopicViewTop({editorElementRef, itemEditorComponentRef, onClick, onClick1, onClick2, property}: {
+    editorElementRef: RefObject<HTMLElement>,
+    property: Readonly<NameItem>,
+    itemEditorComponentRef: RenderTimeComponentRef,
+    onClick: () => void,
+    onClick1: () => void,
+    onClick2: () => Promise<void>
 }) {
-    const editor = useContext(EditorContext);
+    return <div id="selected-topic-top">
+        <ItemView editorElementRef={editorElementRef}
+                  item={property}
+                  itemEditorComponentRef={itemEditorComponentRef}
+        />
 
-    return <div className="topic-item topic-content-item" data-active={editor.currentItem == item || undefined}>
-        {renderItem({editor, editorElementRef, item, itemEditor})}
-        <DeleteContentItemButton/>
+        <div id="selected-topic-top-buttons">
+            <button className="settings-button" onClick={onClick}></button>
+            <button className="close-button" onClick={onClick1}></button>
+            <button className="delete-button" onClick={onClick2}></button>
+        </div>
     </div>;
 }
 
-function TopicView({currentTopic, editorElementRef}: {
-    currentTopic: TopicAccess,
+function TopicViewBody({editorElementRef, itemEditorComponentRef}: {
+    editorElementRef: RefObject<HTMLElement>,
+    itemEditorComponentRef: RenderTimeComponentRef
+}) {
+    const editor = useContext(EditorContext);
+
+    return <div id="selected-topic-view">
+        {
+            editor.currentTopic?.content.map(item => <Fragment key={item._id}>
+                <ItemInsertLine before={item} editorElementRef={editorElementRef}/>
+                <div className="topic-item topic-content-item"
+                     data-active={editor.currentItem == item || undefined}>
+                    <ItemView editorElementRef={editorElementRef} item={item}
+                              itemEditorComponentRef={itemEditorComponentRef}/>
+                    <DeleteContentItemButton/>
+                </div>
+            </Fragment>)
+        }
+        <ItemInsertLine before={null} editorElementRef={editorElementRef}/>
+    </div>;
+}
+
+function TopicView({editorElementRef}: {
     editorElementRef: RefObject<HTMLElement>
 }) {
     const editor = useContext(EditorContext);
-    let itemEditor: MutableRefObject<ReactElement> = {current: <></>};
 
-    let nameItem = currentTopic.getProperty(NameItem);
+    const itemEditorComponentRef = new RenderTimeComponentRef();
 
-    let itemEditorRerenderRef = new class {
-        #element = <></>;
-        rerender = () => void 0;
-
-        get element() {
-            return this.#element
-        }
-
-        set element(element) {
-            this.#element = element;
-            this.rerender();
-        }
-    };
+    if (editor.currentTopic == null) return;
 
     return <div id="selected-topic">
-        <div id="selected-topic-top">
-            {renderItem({editor: editor, editorElementRef: editorElementRef, item: nameItem, itemEditor: itemEditor})}
+        <TopicViewTop editorElementRef={editorElementRef} property={editor.currentTopic.getProperty(NameItem)}
+                      itemEditorComponentRef={itemEditorComponentRef} onClick={() => {
 
-            <div id="selected-topic-top-buttons">
-                <button className="settings-button" onClick={() => {
-
-                }}></button>
-                <button className="close-button" onClick={() => editor.exitTopicView()}></button>
-                <button className="delete-button" onClick={async () => {
-                    if (!await editor.deleteCurrentTopic()) {
-                        alert('Unable to delete topic');
-                    }
-                }}></button>
-            </div>
-        </div>
-        <div id="selected-topic-view">
-            {
-                currentTopic.getTopicContentItems().map(item => {
-                    const isActive = editor.currentItem == item;
-
-                    return [
-                        <ItemInsertLine key={'line-' + item._id} before={item} editorElementRef={editorElementRef}/>,
-                        <TopicContent key={'item-' + item._id} active={isActive}
-                                      editorElementRef={editorElementRef} item={item} itemEditor={itemEditor}/>
-                    ];
-                })
+        }} onClick1={() => editor.exitTopicView()} onClick2={async () => {
+            if (!await editor.deleteCurrentTopic()) {
+                alert('Unable to delete topic');
             }
-            <ItemInsertLine before={null} editorElementRef={editorElementRef}/>
-        </div>
-        <ItemEditor editorRef={itemEditorRerenderRef}></ItemEditor>
-        {itemEditor.current}
+        }}/>
+
+        <TopicViewBody editorElementRef={editorElementRef} itemEditorComponentRef={itemEditorComponentRef}/>
+
+        {itemEditorComponentRef.current}
     </div>;
 }
 
@@ -150,14 +140,11 @@ export function SelectedTopicViewer() {
 
     editor.useTopicViewUpdateCallback(rerender);
 
-    let currentTopic = editor.currentTopicAccess;
+    if (!editor.currentTopic) return <></>;
 
-    return currentTopic ?
-        <TexMacroProvider macros={defaultTexMacros}>
-            <TexMacroProvider macros={currentTopic?.getProperty(TexMacrosItem).macros}>
-                <TopicView currentTopic={currentTopic} editorElementRef={editorElementRef}/>
-            </TexMacroProvider>
+    return <TexMacroProvider macros={defaultTexMacros}>
+        <TexMacroProvider macros={editor.currentTopic?.getProperty(TexMacrosItem).macros}>
+            <TopicView editorElementRef={editorElementRef}/>
         </TexMacroProvider>
-        :
-        <></>;
+    </TexMacroProvider>;
 }

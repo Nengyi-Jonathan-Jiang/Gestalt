@@ -9,7 +9,7 @@ type UpdateCallback = (() => any);
 export class GestaltEditor {
     public readonly gestaltAccess: GestaltAccess;
     public currentTopicAccess: TopicAccess | null = null;
-    public currentItemAccess: ItemWriteAccess<Item> | null = null;
+    public currentItemAccess: ItemWriteAccess | null = null;
 
     public get currentTopic(): Readonly<Topic> | null {
         return this.currentTopicAccess?._getTopic() ?? null;
@@ -26,10 +26,10 @@ export class GestaltEditor {
         this.gestaltAccess = editor;
     }
 
-    public async tryAddTopic(name: string, ...parents: string[]): Promise<boolean> {
+    public async tryAddTopic(): Promise<boolean> {
         this.returnTopicAccess();
 
-        const access = await this.gestaltAccess.addTopic(name, ...parents);
+        const access = await this.gestaltAccess.addTopic();
         if (access == null) {
             return false;
         }
@@ -208,7 +208,7 @@ export class GestaltEditor {
                 );
             }
 
-            this.currentTopicAccess?.returnItemWriter(this.currentItemAccess as ItemWriteAccess<Item>);
+            this.currentTopicAccess?.returnItemWriter(this.currentItemAccess as ItemWriteAccess);
         }
         this.currentItemAccess = null;
     }

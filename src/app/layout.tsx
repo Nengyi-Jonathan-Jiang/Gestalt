@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import "../_assets/katex/katex.min.css"
 
-import React from "react";
+import type {ReactNode} from "react";
 
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
                                        children,
                                    }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>) {
     // noinspection JSUnresolvedLibraryURL,HtmlRequiredTitleElement
     return (
