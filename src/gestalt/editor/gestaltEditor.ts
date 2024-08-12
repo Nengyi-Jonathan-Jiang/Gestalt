@@ -3,6 +3,8 @@ import {TopicAccess} from "@/gestalt/editor/topicAccess";
 import {ItemWriteAccess} from "@/gestalt/editor/itemWriteAccess";
 import {Item} from "@/gestalt/item/item";
 import {Topic} from "@/gestalt/topic/topic";
+import {MutableRefObject} from "react";
+import {ConstructorFor} from "@/utils/util";
 
 type UpdateCallback = (() => any);
 
@@ -10,6 +12,21 @@ export class GestaltEditor {
     public readonly gestaltAccess: GestaltAccess;
     public currentTopicAccess: TopicAccess | null = null;
     public currentItemAccess: ItemWriteAccess | null = null;
+    public currentEditorElement: HTMLElement | null = null;
+
+    /// A fake RefObject so that components can provide an element as the item editor element.
+    getItemEditorRef<T extends HTMLElement>(): MutableRefObject<T> {
+        const thiz = this;
+        return {
+            set current(current: T) {
+                thiz.currentEditorElement = current;
+                current?.focus();
+            },
+            get current() : T {
+                return thiz.currentEditorElement as T;
+            }
+        }
+    }
 
     public get currentTopic(): Readonly<Topic> | null {
         return this.currentTopicAccess?._getTopic() ?? null;
@@ -72,15 +89,17 @@ export class GestaltEditor {
         this.updateTopicView();
     }
 
-    public async insertItemBefore(before: Item | null, itemSupplier: () => Item): Promise<boolean> {
-        const itemWriteAccess = await this.currentTopicAccess?.insertContentItem(before, itemSupplier);
+    public async insertItemBefore(before: Item | null, constructor: ConstructorFor<Item>): Promise<boolean> {
+        const itemWriteAccess = await this.currentTopicAccess?.insertContentItem(before, () => new constructor);
 
         if (!itemWriteAccess) {
             return false;
         }
 
         this.currentItemAccess = itemWriteAccess;
+
         this.updateTopicView();
+        this.currentEditorElement?.focus();
 
         return true;
     }
@@ -91,6 +110,7 @@ export class GestaltEditor {
         }
 
         this.updateTopicView();
+        this.currentEditorElement?.focus();
 
         return true;
     }

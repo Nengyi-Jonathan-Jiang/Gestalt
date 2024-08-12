@@ -1,5 +1,5 @@
 import type {ItemEditingModeRenderResult} from "@/gestalt/item/item";
-import type {ReactElement, RefObject} from "react";
+import type {ReactElement} from "react";
 
 import {PropertyItem} from "@/gestalt/item/propertyItem";
 import type {TexMacros} from "@/tex/Tex";
@@ -30,7 +30,7 @@ export class TexMacrosItem extends PropertyItem<TexMacrosState> {
         return <></>
     }
 
-    public renderEditing(_ref: RefObject<HTMLElement>): ItemEditingModeRenderResult {
+    public renderEditing(): ItemEditingModeRenderResult {
         return {
             editorRender: <></>, // Name editor is in-place, no separate editor
             selfRender: <></>

@@ -39,8 +39,7 @@ export class Gestalt implements JSON_ifyable<GestaltJSONData> {
             target._allTopics.set(topic.id, topic);
         }
 
-        // @ts-ignore
-        return target;
+        return target as this;
     }
 
     public get allTopics(): ReadonlyArray<Topic> {

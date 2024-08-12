@@ -1,11 +1,9 @@
-import {Item, ItemEditingModeRenderResult, type ItemJSONData} from "@/gestalt/item/item";
+import {Item, type ItemJSONData} from "@/gestalt/item/item";
 import type {ConstructorFor} from "@/utils/util";
-import type {ReactElement, RefObject} from "react";
 
 
 export interface PropertyItemTypeRegistryEntry<State_t = any> {
-    cls: ConstructorFor<PropertyItem<State_t>>;
-    constructor: (source?: State_t) => PropertyItem<State_t>;
+    constructor: ConstructorFor<PropertyItem<State_t>>;
 }
 
 /**
@@ -20,11 +18,10 @@ export abstract class PropertyItem<State_t = any> extends Item<State_t> {
         )?.constructor;
 
         if (!constructor) {
-            throw new Error(`Unknown item type : ${type}`);
+            throw new Error(`Unknown property item type : ${type}`);
         }
 
-        // @ts-ignore
-        return constructor(state);
+        return new constructor(state) as this;
     }
 
     private static readonly _itemTypeRegistry: Map<string, Readonly<PropertyItemTypeRegistryEntry>> = new Map;
@@ -32,13 +29,8 @@ export abstract class PropertyItem<State_t = any> extends Item<State_t> {
     /**
      * Registers a type of property item. The type provided should have a constructor
      */
-    public static registerItemType(cls: ConstructorFor<PropertyItem>) {
-        this._itemTypeRegistry.set(cls.name, {
-            cls,
-            constructor: (source?: any) => {
-                return new cls(source);
-            }
-        });
+    public static registerItemType(constructor: ConstructorFor<PropertyItem>) {
+        this._itemTypeRegistry.set(constructor.name, {constructor});
     }
 
     public static get itemTypeRegistry(): ReadonlyMap<string, Readonly<PropertyItemTypeRegistryEntry>> {

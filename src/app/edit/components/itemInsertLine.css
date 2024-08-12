@@ -47,7 +47,7 @@
     border:          0;
     background:      #ccc;
     padding:         0;
-    color:           white;
+    color:           var(--background-color);
     border-radius:   50%;
     z-index:         2;
     width:           24px;
@@ -64,5 +64,5 @@
     width:              24px;
     height:             24px;
     -webkit-mask-image: url("../../../_assets/icons/add-icon.svg");
-    background:         white;
+    background:         var(--background-color);
 }

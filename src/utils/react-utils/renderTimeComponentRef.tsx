@@ -35,7 +35,6 @@ export class RenderTimeComponentRef implements MutableRefObject<ReactNode> {
     }
 
     static RenderTimeComponentRef({thiz}: { thiz: RenderTimeComponentRef }) {
-        console.log(thiz);
         return thiz._current;
     }
 

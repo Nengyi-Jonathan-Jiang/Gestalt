@@ -42,5 +42,5 @@ export abstract class Item<State_t = any> implements JSON_ifyable<ItemJSONData<S
 
     public abstract render(): ReactElement;
 
-    public abstract renderEditing(editorElementRef: RefObject<HTMLElement>): ItemEditingModeRenderResult;
+    public abstract renderEditing(): ItemEditingModeRenderResult;
 }

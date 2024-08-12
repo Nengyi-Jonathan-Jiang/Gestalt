@@ -1,19 +1,18 @@
-import {type RefObject, useContext} from "react";
+import {useContext} from "react";
 import {type ItemEditingModeRenderResult} from "@/gestalt/item/item";
 import {ContentItem} from "@/gestalt/item/contentItem";
-import {EditorContext} from "@/app/edit/editorContext";
+import {EditorContext} from "@/gestalt/editor/editorContext";
 import "./basicContentItem.css"
 
-export function BasicContentItemEditor({editorElementRef, value}: {
-    value: string,
-    editorElementRef: RefObject<HTMLElement>
+export function BasicContentItemEditor({value}: {
+    value: string
 }) {
     const editor = useContext(EditorContext);
 
     return <div id="selected-topic-editor">
         <textarea id="selected-topic-editor-textarea" placeholder="Type here..." value={value} onChange={
             (e) => editor.setCurrentItemSource(e.target.value)
-        } ref={editorElementRef as RefObject<HTMLTextAreaElement>} spellCheck="false"/>
+        } ref={editor.getItemEditorRef<HTMLTextAreaElement>()} spellCheck="false"/>
     </div>;
 }
 
@@ -25,10 +24,10 @@ export abstract class BasicContentItem extends ContentItem<string> {
         this.state = state ?? "";
     }
 
-    renderEditing(ref: RefObject<HTMLElement>): ItemEditingModeRenderResult {
+    renderEditing(): ItemEditingModeRenderResult {
         return {
             selfRender: this.render(),
-            editorRender: <BasicContentItemEditor value={this.state} editorElementRef={ref}/>
+            editorRender: <BasicContentItemEditor value={this.state}/>
         }
     }
 }

@@ -1,5 +1,5 @@
 import React, {Fragment, useContext} from "react";
-import {EditorContext} from "@/app/edit/editorContext";
+import {EditorContext} from "@/gestalt/editor/editorContext";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
 import {NameItem} from "@/app/items/property/nameItem";
 import {Topic} from "@/gestalt/topic/topic";
@@ -42,16 +42,20 @@ function GestaltButtons() {
         <button onClick={
             async _ => {
                 let name = window.prompt("Please enter the topic name:");
-                if (name == null) {
+                if (name == null || name.trim().length === 0) {
                     return;
                 }
-                name = name.trim();
-
-                // Capitalize the first letter
-                name = name.charAt(0).toUpperCase() + name.slice(1);
 
                 if (name.length === 0 || !await editor.tryAddTopic()) {
                     alert('Unable to create topic.')
+                    return;
+                }
+
+                if (editor.currentTopic) {
+                    editor.currentTopic.getProperty(NameItem).state = name;
+                    editor.currentTopicAccess?.markChanged();
+                    editor.updateGestaltView();
+                    editor.updateTopicView();
                 }
             }
         }> Add Topic

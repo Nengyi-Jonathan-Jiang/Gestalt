@@ -13,8 +13,8 @@ export class TopicProperties implements InPlaceJSON_ifyable<ItemJSONData[]> {
     constructor() {
         // Make sure we have instances of all registered MetadataItem types.
         for (const i of PropertyItem.itemTypeRegistry.values()) {
-            if (!this.entries.has(i.cls)) {
-                this.update(i.constructor());
+            if (!this.entries.has(i.constructor)) {
+                this.update(new i.constructor);
             }
         }
     }
@@ -38,8 +38,7 @@ export class TopicProperties implements InPlaceJSON_ifyable<ItemJSONData[]> {
 
         target.updateFromJSON(json);
 
-        // @ts-ignore
-        return target;
+        return target as this;
     }
 
     updateFromJSON(json: ItemJSONData[]) {

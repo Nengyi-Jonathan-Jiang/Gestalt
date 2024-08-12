@@ -2,17 +2,16 @@ import type {ItemEditingModeRenderResult} from "@/gestalt/item/item";
 import {type ReactElement, type RefObject, useContext} from "react";
 
 import {PropertyItem} from "@/gestalt/item/propertyItem";
-import {EditorContext} from "@/app/edit/editorContext";
+import {EditorContext} from "@/gestalt/editor/editorContext";
 import "./nameItem.css";
 
-function NameItemEditingMode({value, editorElementRef}: {
-    value: string,
-    editorElementRef: RefObject<HTMLElement>
+function NameItemEditingMode({value}: {
+    value: string
 }) {
     const editor = useContext(EditorContext);
 
     return <input
-        ref={editorElementRef as RefObject<HTMLInputElement>}
+        ref={editor.getItemEditorRef<HTMLInputElement>()}
         value={value}
         onInput={(e) => {
             editor.setCurrentItemSource((e.target as HTMLInputElement).value);
@@ -47,10 +46,10 @@ export class NameItem extends PropertyItem<string> {
         return <div className="name-item">{this.state} </div>
     }
 
-    public renderEditing(ref: RefObject<HTMLElement>): ItemEditingModeRenderResult {
+    public renderEditing(): ItemEditingModeRenderResult {
         return {
             editorRender: <></>, // Name editor is in-place, no separate editor
-            selfRender: <NameItemEditingMode value={this.state} editorElementRef={ref}/>
+            selfRender: <NameItemEditingMode value={this.state}/>
         }
     }
 }

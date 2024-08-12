@@ -1,5 +1,4 @@
 import {createContext} from "react";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
 
-// @ts-ignore
-export const EditorContext = createContext<GestaltEditor>(null)
+export const EditorContext = createContext<GestaltEditor>(null as unknown as GestaltEditor)

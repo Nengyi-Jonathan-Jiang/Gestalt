@@ -1,3 +1,19 @@
+/**
+ * Represents the type for the constructor for a given type. For example,
+ *
+ * ```ts
+ * class Foo {}
+ * class Bar extends Foo {}
+ *
+ * const a : ConstructorFor<Foo> = Foo;
+ * const b : ConstructorFor<Foo> = Bar;
+ *
+ * const fooA : Foo = new a();
+ * const fooB : Foo = new b();
+ * ```
+ *
+ * Note that this does not constrain the parameters to the constructor, which can lead to errors if one is not careful.
+ */
 export type ConstructorFor<T> = (new(...args: any[]) => T);
 
 /**

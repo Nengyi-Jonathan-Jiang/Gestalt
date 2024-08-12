@@ -16,7 +16,7 @@
 }
 
 #selected-topic-editor {
-    outline:        2px solid black;
+    outline:        2px solid var(--outline-color);
     outline-offset: -1px;
 }
 

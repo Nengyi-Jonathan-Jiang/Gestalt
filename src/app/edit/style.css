@@ -11,7 +11,7 @@ main {
 }
 
 main > div {
-    outline:        2px solid black;
+    outline:        2px solid var(--outline-color);
     outline-offset: -1px;
 }
 
@@ -30,7 +30,7 @@ main > div {
 }
 
 #topics-list > div.active {
-    outline: 1px solid black;
+    outline: 1px solid var(--outline-color);
 }
 
 .topic-item {
@@ -40,7 +40,7 @@ main > div {
 }
 
 .topic-item[data-active] {
-    outline: 1px solid black;
+    outline: 1px solid var(--outline-color);
 }
 
 .topic-item:not([data-active]) .delete-button {
@@ -129,8 +129,8 @@ div:has(>.topic-item-insert-modal-body) {
 }
 
 .topic-item-insert-modal-body {
-    outline:    1px solid black;
-    background: white;
+    outline:    1px solid var(--outline-color);
+    background: var(--background-color);
     width:      fit-content;
     height:     fit-content;
     padding:    10px;

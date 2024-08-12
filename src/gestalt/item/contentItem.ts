@@ -1,11 +1,10 @@
-import {Item, ItemEditingModeRenderResult, type ItemJSONData} from "@/gestalt/item/item";
-import type {ReactElement, RefObject} from "react";
+import {Item, type ItemJSONData} from "@/gestalt/item/item";
+import {ConstructorFor} from "@/utils/util";
 
 /** */
 export interface ContentItemTypeRegistryEntry<State_t = any> {
-    cls: typeof ContentItem;
+    constructor: ConstructorFor<ContentItem<State_t>>;
     displayName: string;
-    constructor: (source?: State_t) => ContentItem<State_t>;
 }
 
 /**
@@ -21,29 +20,19 @@ export abstract class ContentItem<State_t = any> extends Item<State_t> {
         )?.constructor;
 
         if (!constructor) {
-            throw new Error(`Unknown item type : ${type}`);
+            throw new Error(`Unknown content item type : ${type}`);
         }
 
-        // @ts-ignore
-        return constructor(state);
+        return new constructor(state) as this;
     }
 
     private static readonly _itemTypeRegistry: Map<string, Readonly<ContentItemTypeRegistryEntry>> = new Map;
 
-    public static registerItemType(cls: typeof ContentItem<any>, displayName: string) {
-        this._itemTypeRegistry.set(cls.name, {
-            displayName,
-            cls,
-            constructor: (source?: any) => {
-                // @ts-ignore: We know that only non-abstract classes may be registered, but typescript doesn't.
-                return new cls(source);
-            }
-        });
+    public static registerItemType(constructor: ConstructorFor<ContentItem>, displayName: string) {
+        this._itemTypeRegistry.set(constructor.name, {displayName, constructor});
     }
 
     public static get itemTypeRegistry(): ReadonlyMap<string, Readonly<ContentItemTypeRegistryEntry>> {
         return this._itemTypeRegistry;
     }
 }
-
-

@@ -5,10 +5,10 @@ import "./style.css"
 import "./button-style.css"
 import {PrivateGestaltAccess} from "@/localGestalt/privateGestaltAccess";
 import {Gestalt} from "@/gestalt/gestalt";
-import {EditorContext} from "@/app/edit/editorContext";
+import {EditorContext} from "@/gestalt/editor/editorContext";
 import {GestaltEditor} from "@/gestalt/editor/gestaltEditor";
 import {GestaltAccess} from "@/gestalt/editor/gestaltAccess";
-import {SelectedTopicViewer} from "@/app/edit/components/selectedTopicViewer";
+import {SelectedTopicViewer} from "@/app/edit/components/topicViewer/selectedTopicViewer";
 import {GestaltView} from "@/app/edit/components/gestaltViewer";
 import {registerItemTypes} from "@/app/items/allItems";
 import {useManualRerender} from "@/utils/react-utils/hooks";

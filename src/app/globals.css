@@ -17,10 +17,19 @@
     box-sizing: border-box;
 }
 
+:root {
+    --background-color: white;
+    --outline-color:    black;
+    --text-color:       black;
+
+    background-color:   var(--background-color);
+    color:              var(--text-color);
+}
+
 input {
     font:       inherit;
     padding:    4px;
-    outline:    1px solid black;
+    outline:    1px solid var(--outline-color);
     border:     0;
     background: none;
     width:      100%;
@@ -28,9 +37,17 @@ input {
 
 button {
     outline:       none;
-    border:        1px solid black;
+    border:        1px solid var(--outline-color);
     border-radius: 0;
     font:          inherit;
+}
+
+textarea {
+    font:       inherit;
+    color:      inherit;
+    outline:    1px solid var(--outline-color);
+    border:     0;
+    background: none;
 }
 
 .katex {
