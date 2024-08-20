@@ -35,12 +35,13 @@ main > div {
 
 .topic-item {
     position: relative;
-    margin:   0 6px;
+    margin:   0;
     z-index:  0;
 }
 
 .topic-item[data-active] {
     outline: 1px solid var(--outline-color);
+    outline-offset: 4px;
 }
 
 .topic-item:not([data-active]) .delete-button {
@@ -54,7 +55,7 @@ main > div {
 }
 
 .paragraph-item {
-    padding: 4px;
+    padding: 0;
     margin:  0;
 }
 
@@ -77,48 +78,6 @@ main > div {
     flex-grow:   0;
     flex-shrink: 0;
     flex-basis:  50vh;
-}
-
-.math-item {
-    padding: 8px 12px;
-    overflow-x:      auto;
-    display:         flex;
-    justify-content: center;
-    align-items:     center;
-    height: fit-content;
-}
-
-.math-item::-webkit-scrollbar {
-    height: 6px;
-}
-
-.math-item::-webkit-scrollbar-thumb {
-    background: #ccc;
-}
-
-.math-item::-webkit-scrollbar-thumb:hover {
-    background: #888;
-}
-
-.math-item:has(.katex-html:not(:empty)) {
-    padding:          12px 12px 6px 12px;
-    writing-mode:     vertical-lr;
-    scrollbar-gutter: stable;
-    width:            100%;
-}
-
-.math-item > * {
-    width:        100%;
-    writing-mode: initial;
-}
-
-.math-item .katex-html:empty::before {
-    content:         "Edit this math block!";
-    color:           gray;
-    display:         flex;
-    align-items:     center;
-    justify-content: center;
-    height:          16px;
 }
 
 div:has(>.topic-item-insert-modal-body) {

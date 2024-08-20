@@ -1,0 +1,42 @@
+
+.math-item {
+    padding: 8px 12px;
+    overflow-x:      auto;
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    height: fit-content;
+}
+
+.math-item::-webkit-scrollbar {
+    height: 6px;
+}
+
+.math-item::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+
+.math-item::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+.math-item:has(.katex-html:not(:empty)) {
+    padding:          12px 12px 6px 12px;
+    writing-mode:     vertical-lr;
+    scrollbar-gutter: stable;
+    width:            100%;
+}
+
+.math-item > * {
+    width:        100%;
+    writing-mode: initial;
+}
+
+.math-item .katex-html:empty::before {
+    content:         "Edit this math block!";
+    color:           gray;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    height:          16px;
+}

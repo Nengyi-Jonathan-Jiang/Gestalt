@@ -7,12 +7,30 @@
 }
 
 #selected-topic > #selected-topic-top {
-    flex-grow:      0;
-    flex-basis:     0;
-    font-family:    "Raleway", sans-serif;
-    font-size:      150%;
-    font-variant:   small-caps;
-    padding-bottom: 0;
+    flex-grow:       0;
+    flex-basis:      0;
+    font-family:     "Montserrat", sans-serif;
+    font-weight:     600;
+    font-size:       24pt;
+    padding-bottom:  0;
+    position:        relative;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     start;
+}
+
+#selected-topic > #selected-topic-top > div:first-child {
+    width: 100%;
+}
+
+#selected-topic-top::after {
+    content:    "";
+    display:    block;
+    height:     1px;
+    width:      100%;
+    background: black;
+    bottom:     0;
+    align-self: center;
 }
 
 #selected-topic-editor {

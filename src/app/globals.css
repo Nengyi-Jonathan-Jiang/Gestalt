@@ -9,6 +9,11 @@
 }
 
 @font-face {
+    font-family: "Montserrat";
+    src:         url("../_assets/other_fonts/Montserrat.ttf") format("woff2");
+}
+
+@font-face {
     font-family: "JetBrains Mono";
     src:         url("../_assets/other_fonts/JetBrainsMono.woff2") format("woff2");
 }
@@ -24,6 +29,11 @@
 
     background-color:   var(--background-color);
     color:              var(--text-color);
+
+    text-align:         justify;
+    font-family:        KaTeX_Main, Times New Roman, serif;
+    font-size:          14pt;
+    line-height:        1.2;
 }
 
 input {
@@ -66,12 +76,6 @@ textarea {
     color:       red;
     text-align:  center;
     white-space: wrap;
-}
-
-:root {
-    text-align:  justify;
-    font-family: KaTeX_Main, Times New Roman, serif;
-    font-size:   14pt;
 }
 
 .ReactModalPortal {

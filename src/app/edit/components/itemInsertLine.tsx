@@ -6,7 +6,7 @@ import {ConstructorFor, toArray} from "@/utils/util";
 import {ContentItem, ContentItemTypeRegistryEntry} from "@/gestalt/item/contentItem";
 
 import "./itemInsertLine.css";
-import {useListenerOnHTMLElement, useListenerOnWindow} from "@/utils/react-utils/hooks";
+import {useListenerOnHTMLElement} from "@/utils/react-utils/hooks";
 
 function AddItemButton({contentItemTypeEntry: {constructor, displayName}, closeModal, action}: {
     contentItemTypeEntry: Readonly<ContentItemTypeRegistryEntry>,
