@@ -19,34 +19,40 @@ function AddItemButton({contentItemTypeEntry: {constructor, displayName}, closeM
     }}>{displayName}</button>;
 }
 
-function AddItemModal({isOpen, closeModal, addItem}: {
-    isOpen: boolean,
+function AddItemModalInner({addItem, closeModal} : {
     closeModal: () => void,
     addItem: (supplier: ConstructorFor<Item>) => Promise<void>
 }) {
     const contentItemTypes = toArray(ContentItem.itemTypeRegistry.values());
 
-    useListenerOnHTMLElement({current: document as unknown as HTMLElement}, "keypress", e => {
-        console.log(isOpen, e.key);
-        if (isOpen && e.key === "Escape") {
+    useListenerOnHTMLElement({current: document as unknown as HTMLElement}, "keydown", e => {
+        if (e.key === "Escape") {
             closeModal();
         }
     });
+    
+    return <div className="topic-item-insert-modal-body">
+        <p>Choose an item type to insert:</p>
+        {
+            contentItemTypes.map((contentItemTypeEntry) =>
+                <AddItemButton
+                    key={contentItemTypeEntry.displayName}
+                    contentItemTypeEntry={contentItemTypeEntry}
+                    action={addItem}
+                    closeModal={closeModal}/>
+            )
+        }
+    </div>
+}
 
-    return <Modal isOpen={isOpen} className="topic-item-insert-modal" ariaHideApp={false}>
-        <div className="topic-item-insert-modal-body">
-            <p>Choose an item type to insert:</p>
-            {
-                contentItemTypes.map((contentItemTypeEntry) =>
-                    <AddItemButton
-                        key={contentItemTypeEntry.displayName}
-                        contentItemTypeEntry={contentItemTypeEntry}
-                        action={addItem}
-                        closeModal={closeModal}/>
-                )
-            }
-        </div>
-    </Modal>;
+function AddItemModal({isOpen, closeModal, addItem}: {
+    isOpen: boolean,
+    closeModal: () => void,
+    addItem: (supplier: ConstructorFor<Item>) => Promise<void>
+}) {
+    return isOpen ? <Modal isOpen={true} className="topic-item-insert-modal" ariaHideApp={false}>
+        <AddItemModalInner addItem={addItem} closeModal={closeModal}/>
+    </Modal> : <></>;
 }
 
 function InsertItemButton({openModal}: { openModal: () => void }) {

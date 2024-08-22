@@ -23,8 +23,7 @@ export function ItemViewer({item, itemEditorComponentRef}: {
         result = item.render();
     }
 
-    async function toggleActive(evt: MouseEvent<HTMLDivElement>) {
-        evt.preventDefault();
+    async function toggleActive() {
 
         if (editor.currentItem == item) {
             editor.stopEditItem();
@@ -38,7 +37,11 @@ export function ItemViewer({item, itemEditorComponentRef}: {
         }
     }
 
-    return <div onClick={toggleActive}> {result} </div>;
+    return <div onClick={e => {
+        if(!e.ctrlKey) return;
+        e.preventDefault();
+        toggleActive();
+    }}> {result} </div>;
 }
 
 export function DeleteContentItemButton() {

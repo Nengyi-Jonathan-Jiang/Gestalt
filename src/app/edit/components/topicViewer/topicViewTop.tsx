@@ -22,12 +22,6 @@ export function TopicViewTop({itemEditorComponentRef, topic}: {
             <button className="settings-button" onClick={() => {
                 setSettingsModalOpen(true);
             }}/>
-            <button className="close-button" onClick={editor.exitTopicView.bind(editor)}/>
-            <button className="delete-button" onClick={async () => {
-                if (!await editor.deleteCurrentTopic()) {
-                    alert('Unable to delete topic');
-                }
-            }}/>
         </div>
 
         <Modal isOpen={isSettingsModalOpen} className="topic-settings-modal modal" ariaHideApp={false}>

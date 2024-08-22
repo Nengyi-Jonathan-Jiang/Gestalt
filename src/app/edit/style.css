@@ -29,14 +29,22 @@ main > div {
     padding:    10px;
 }
 
-#topics-list > div.active {
+.topic-v {
+    padding: 4px;
+}
+
+#topics-list > .topic-v.active {
     outline: 1px solid var(--outline-color);
 }
 
 .topic-item {
     position: relative;
-    margin:   0;
+    margin: 0 3px;
     z-index:  0;
+}
+
+.topic-v {
+    position: relative;
 }
 
 .topic-item[data-active] {
@@ -44,25 +52,14 @@ main > div {
     outline-offset: 4px;
 }
 
-.topic-item:not([data-active]) .delete-button {
+.topic-v:not(.active)>.delete-button {
     display: none;
 }
 
-.topic-item .delete-button {
+.topic-v>.delete-button {
     position: absolute;
     top:      4px;
-    right:    5px;
-}
-
-.paragraph-item {
-    padding: 0;
-    margin:  0;
-}
-
-.paragraph-item:empty::after {
-    content:     "Edit this paragraph!";
-    color:       gray;
-    white-space: wrap;
+    right:    3px;
 }
 
 /* Uncomment this to enable indentation on paragraphs */

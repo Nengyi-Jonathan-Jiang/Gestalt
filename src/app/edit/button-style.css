@@ -1,16 +1,26 @@
 .delete-button, .close-button, .settings-button {
-    position:   relative;
     display:    block;
+    background: radial-gradient(#fff, #0000);
+}
+
+.delete-button, .close-button, .settings-button, .small-link {
+    position:   relative;
     width:      24px;
     height:     24px;
-    background: radial-gradient(#fff, #0000);
     border:     0;
     outline:    none;
     padding:    0;
     margin:     0;
 }
 
-:is(.close-button, .delete-button, .settings-button)::after {
+.small-link {
+    display:        inline-block;
+    width:          14px;
+    height:         14px;
+    vertical-align: top;
+}
+
+:is(.close-button, .delete-button, .settings-button, .small-link)::after {
     content:           "";
     display:           block;
     position:          absolute;
@@ -20,19 +30,29 @@
     height:            100%;
 
     -webkit-mask-size: cover;
+    mask-size: cover;
 }
 
 .close-button::after {
     -webkit-mask-image: url("../../_assets/icons/close-icon.svg");
+    mask-image: url("../../_assets/icons/close-icon.svg");
     background:         #48f;
 }
 
 .delete-button::after {
     -webkit-mask-image: url("../../_assets/icons/delete-icon.svg");
+    mask-image: url("../../_assets/icons/delete-icon.svg");
     background:         #f48;
 }
 
 .settings-button::after {
     -webkit-mask-image: url("../../_assets/icons/settings-icon.svg");
+    mask-image: url("../../_assets/icons/settings-icon.svg");
+    background:         #48f;
+}
+
+.small-link::after {
+    -webkit-mask-image: url("../../_assets/icons/link-icon.svg");
+    mask-image: url("../../_assets/icons/link-icon.svg");
     background:         #48f;
 }

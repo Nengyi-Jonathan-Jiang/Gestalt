@@ -2,6 +2,11 @@ h2.heading-item {
     font-size:   100%;
     font-weight: bold;
     margin:      0;
-    padding:     4px;
+    padding:     4px 0;
     font-family: "Montserrat", sans-serif;
+}
+
+h2.heading-item:empty::after {
+    content: "Edit this heading!";
+    color:       #888;
 }

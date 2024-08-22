@@ -34,7 +34,7 @@
 
 .math-item .katex-html:empty::before {
     content:         "Edit this math block!";
-    color:           gray;
+    color:           #888;
     display:         flex;
     align-items:     center;
     justify-content: center;

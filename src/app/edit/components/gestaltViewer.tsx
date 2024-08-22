@@ -11,9 +11,14 @@ function GestaltTopic({editor, topic, tryViewTopic}: {
     tryViewTopic: () => void
 }) {
     return <Fragment>
-        <div className={editor.currentTopic == topic ? "active" : undefined}
+        <div className={(editor.currentTopic == topic ? "active " : "") + "topic-v"}
              onClick={tryViewTopic}>
             {topic.getProperty(NameItem).state}
+            <button className="delete-button" onClick={async () => {
+                if (!await editor.deleteCurrentTopic()) {
+                    alert('Unable to delete topic');
+                }
+            }}/>
         </div>
     </Fragment>;
 }
@@ -26,6 +31,11 @@ function GestaltTopicsList() {
         {
             data.topics.map(topic =>
                 <GestaltTopic key={topic.id} editor={editor} topic={topic} tryViewTopic={() => {
+                    if(editor.currentTopic == topic) {
+                        editor.exitTopicView();
+                        return;
+                    }
+
                     const success = editor.tryViewTopic(topic.id);
                     if (!success) {
                         alert(`Unable to edit topic ${topic.getProperty(NameItem).state}.`)

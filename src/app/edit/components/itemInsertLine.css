@@ -34,6 +34,7 @@
     align-items:     center;
     justify-content: center;
     z-index:         1;
+    margin: 0 3px;
 }
 
 .topic-item-insert-line:not(:is(:hover, :last-child)) > button {
@@ -62,5 +63,6 @@
     width:              24px;
     height:             24px;
     -webkit-mask-image: url("../../../_assets/icons/add-icon.svg");
+    mask-image:         url("../../../_assets/icons/add-icon.svg");
     background:         var(--background-color);
 }
