@@ -6,5 +6,10 @@
 .paragraph-item:empty::after {
     content:     "Edit this paragraph!";
     color:       #888;
+    font-size: 90%;
     white-space: wrap;
+}
+
+.paragraph-item>strong {
+    font-size: 99%;
 }
